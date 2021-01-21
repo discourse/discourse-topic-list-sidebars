@@ -4,7 +4,7 @@ setup:
   description: |
     Each line should be in the format of "<code>category-slug</code>, <code>ID</code>".<br/><br/>
     <ul>
-    <li>The category slug is the category name from its url, for example /c/<b>site-feedback</b></li>
+    <li>The category slug is the category name from its url, for example /c/<b>site-feedback/3</b></li>
 
     <li>The topic ID is the first number in its url, for example /t/welcome-to-discourse/<b>8</b>/3</li>
 

@@ -73,6 +73,7 @@
       tbody {
         grid-area: body;
         display: table;
+        width: 100%;
       }
     }
   }
@@ -85,33 +86,6 @@
     width: 78%;
     @media screen and (max-width: 900px) {
       width: 73%;
-    }
-  }
-}
-
-// IE11 support, feel free to toss this into the sea
-
-@media screen and (min-width: 767px) {
-  .custom-sidebar .contents > .topic-list {
-    display: -ms-grid;
-    -ms-grid-columns: 78% 20%;
-    -ms-grid-rows: 50px auto;
-    thead {
-      -ms-grid-row: 1;
-      -ms-grid-column: 1;
-      width: 100%;
-      tr {
-        border-bottom: none;
-      }
-    }
-    > div {
-      -ms-grid-row: 1;
-      -ms-grid-column: 2;
-      -ms-grid-row-span: 2;
-    }
-    tbody {
-      -ms-grid-row: 2;
-      -ms-grid-column: 1;
     }
   }
 }

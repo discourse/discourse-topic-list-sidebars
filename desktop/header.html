@@ -14,7 +14,7 @@
   }
 
   const setups = parseSetups(settings.setup);
-  const container = Discourse.__container__;
+  const { getOwner } = require("discourse-common/lib/get-owner");
   const { h } = require("virtual-dom");
   const { ajax } = require("discourse/lib/ajax");
   const PostCooked = require("discourse/widgets/post-cooked").default;
@@ -24,9 +24,9 @@
     tagName: "div.sticky-sidebar",
 
     html() {
-      const path = window.location.pathname;
-      const controller = container.lookup("controller:navigation/category");
-      const category = controller.get("category");
+      const router = getOwner(this).lookup("router:main");
+      const currentRouteParams = router.currentRoute.params;
+      const isCategoryTopicList = currentRouteParams.hasOwnProperty("category_slug_path_with_id");
       const stickyOffset  = document.getElementsByClassName('d-header')[0].offsetHeight + 20;
       const sidebarWrapper = document.getElementById("fixed-wrapper");
 
@@ -36,36 +36,38 @@
         $(".sticky-sidebar").css("top", stickyOffset + "px");
       }
 
-      if (/^\/c\//.test(path) && setups[category.slug]){ // If set, show category sidebar
-        const setup = setups[category.slug];
-        sidebarClasses(setup);
-
-        const nodes = [
-          this.getPost(setup["post"])
-        ];
-        return h("div.category-sidebar-contents " + ".category-sidebar-" + category.slug, nodes);
-
-      } else if (settings.inherit_parent_sidebar && /^\/c\//.test(path) && category.parentCategory && setups[category.parentCategory.slug] != undefined && setups[category.slug] == undefined ) { // Subcategory pages if unset, take on parent
-        const setup = setups[category.parentCategory.slug];
-        sidebarClasses(setup);
-
-        const nodes = [
-          this.getPost(setup["post"])
-        ];
-        return h("div.category-sidebar-contents " + ".category-sidebar-", nodes);
-
-      } else if (setups["all"] && (/^\/$/.test(path) || /^\/latest/.test(path) || /^\/new/.test(path) || /^\/unread/.test(path) || /^\/top/.test(path)))  { // If set, show sidebar for category agnostic topic lists
+      if (setups["all"] && !isCategoryTopicList) {
         const setup = setups["all"];
         sidebarClasses(setup);
-        console.log(setups["all"]);
+
         const nodes = [
           this.getPost(setup["post"])
         ];
         return h("div.category-sidebar-contents " + ".category-sidebar-all", nodes);
-     } else {
-       document.querySelector("body").classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
-       document.querySelector(".topic-list").classList.remove("with-sidebar", settings.sidebar_side);
+      } else if(isCategoryTopicList) {
+        const categorySlugPath = currentRouteParams.category_slug_path_with_id.split('/');
+        let categorySlug;
+
+        if (categorySlugPath.length === 2 || settings.inherit_parent_sidebar) { // If not a subcategory or if it should inherit from parent
+          categorySlug = categorySlugPath[0];
+        }
+        else {
+          categorySlug = categorySlugPath[categorySlugPath.length - 2];
+        }
+
+        if (categorySlug && setups[categorySlug]){ // If set, show category sidebar
+          const setup = setups[categorySlug];
+          sidebarClasses(setup);
+
+          const nodes = [
+            this.getPost(setup["post"])
+          ];
+          return h("div.category-sidebar-contents " + ".category-sidebar-" + categorySlug, nodes);
+        }
       }
+      //Remove classes if no sidebar returned
+      document.querySelector("body").classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
+      document.querySelector(".topic-list").classList.remove("with-sidebar", settings.sidebar_side);
     },
 
     getPost(id) {
