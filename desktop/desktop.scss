@@ -31,13 +31,7 @@
       align-items: start;
       grid-template-rows: 50px auto;
 
-      & > :first-child:not(thead) { // targets thead, will eventually switch to `topic-list-header`
-        grid-area: head;
-        display: flex;
-        align-self: end;
-        width: 100%; // Safari
-      }
-      thead { // will eventually remove once topic-list-refacor is merged
+      .topic-list-header {
         grid-area: head;
         display: table;
         align-self: end;
@@ -71,7 +65,7 @@
           }
         }
       }
-      > :nth-child(3) {
+      .topic-list-body {
         grid-area: body;
         display: table;
         width: 100%;
