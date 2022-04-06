@@ -1,21 +1,22 @@
 setup:
   type: list
-  default: 'staff, 3'
+  default: "staff, 3"
   description: |
-    Each line should be in the format of "<code>category-slug</code>, <code>ID</code>".<br/><br/>
+    Each line should be in the format of "<code>category-slug</code>, <code>ID</code>".<br/> (e.g., staff, 3)<br/>
     <ul>
-    <li>The category slug is the category name from its url, for example /c/<b>site-feedback/3</b></li>
+    <li>The category slug is the category name from its url, for example if your category is located at community.example.com/c/site-feedback/5, you should use <b>site-feedback</b></li>
 
-    <li>The topic ID is the first number in its url, for example /t/welcome-to-discourse/<b>8</b>/3</li>
+    <li>The topic ID is the first number in its url, for from the url community.example.com/t/welcome-to-discourse/8/10, you would use <b>8</b> in the setting</li>
 
     <li>If you'd like to set a sidebar for /latest, /top, /new, /unread, use <code>all</code> as the category slug</li>
     </ul>
-    <p>For performance reasons it's recommended that you close  sidebar topics so there aren't any replies</p>
+    <p>For performance reasons it's recommended that you close sidebar topics so there aren't any replies</p>
+    <p>Note that for a user to be able to see the sidebar, they must be able to access the topic. A topic in a protected category will not be visible as a sidebar to all users. If you don't want a sidebar topic to appear in your topic list, you can unlist it.</p>
 
-sidebar_side: 
+sidebar_side:
   default: right
   type: enum
-  choices: 
+  choices:
     - left
     - right
 
@@ -24,7 +25,7 @@ inherit_parent_sidebar:
   description: |
     If checked subcategories will inherit their parent category's sidebar (unless the subcategory has its own sidebar assigned). <p>When unchecked subcategories will only display a sidebar if one is specified.</p>
 
-stick_on_scroll: 
+stick_on_scroll:
   default: true
   description: |
     When checked sidebar has a sticky position on scroll
