@@ -19,6 +19,12 @@
           "sidebar head"
           "sidebar body";
       }
+      .posts-wrapper {
+        display: flex;
+      }
+      .topic-above-posts-outlet.category-sidebar {
+        position: sticky;
+      }
   }
     &.sidebar-right .contents > .topic-list {
       grid-template-columns: 78% 20%;
