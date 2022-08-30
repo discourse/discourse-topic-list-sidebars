@@ -26,7 +26,7 @@ function createSidebar(taxonomy) {
     .querySelector("body")
     .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
   document
-    .querySelector(".topic-list,.container.posts") // topic list and post details
+    .querySelector(".contents .topic-list, #main-outlet > .regular") // topic list and post details
     .classList.add("with-sidebar", settings.sidebar_side);
 
   return h(
@@ -97,7 +97,7 @@ createWidget("category-sidebar", {
       .querySelector("body")
       .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
     document
-      .querySelector(".topic-list")
+      .querySelector(".contents .topic-list, #main-outlet > .regular")
       .classList.remove("with-sidebar", settings.sidebar_side);
   },
 
