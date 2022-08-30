@@ -1,8 +1,8 @@
-import { ajax } from "discourse/lib/ajax";
-import { createWidget } from "discourse/widgets/widget";
 import { getOwner } from "discourse-common/lib/get-owner";
-import { h } from "virtual-dom";
+import { ajax } from "discourse/lib/ajax";
 import PostCooked from "discourse/widgets/post-cooked";
+import { createWidget } from "discourse/widgets/widget";
+import { h } from "virtual-dom";
 
 function defaultSettings() {
   return {};
@@ -26,7 +26,7 @@ function createSidebar(taxonomy) {
     .querySelector("body")
     .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
   document
-    .querySelector(".topic-list")
+    .querySelector(".topic-list,.container.posts") // topic list and post details
     .classList.add("with-sidebar", settings.sidebar_side);
 
   return h(
