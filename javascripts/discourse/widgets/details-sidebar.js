@@ -56,13 +56,13 @@ createWidget("details-sidebar", {
   },
 
   html() {
-    const router = getOwner(this).lookup("router:main");
+    const router = getOwner(this).lookup("controller:application");
     const currentRouteParams = router.currentRoute.parent.params;
     const isDetailTopic = currentRouteParams.hasOwnProperty(
       "slug"
     );
 
-    console.log(setups, 'setups');
+    console.log(router, 'router');
 
     if (setups["all"] && !isDetailTopic) {
       return createSidebar.call(this, "all");

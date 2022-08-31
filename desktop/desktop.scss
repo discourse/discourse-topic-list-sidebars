@@ -5,7 +5,7 @@
       display: none;
     }
   }
-  .regular.with-sidebar.left {
+  .regular.with-sidebar.left .details-sidebar {
     display: none;
   }
 }
@@ -89,6 +89,7 @@
       .regular.with-sidebar.left {
         display: grid;
         grid-template-areas: "sidebar .";
+        .details-sidebar { display: block; }
         > span:first-of-type {
           grid-area: sidebar;
           grid-row: span 10;
