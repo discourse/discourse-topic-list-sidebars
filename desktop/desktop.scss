@@ -19,12 +19,6 @@
           "sidebar head"
           "sidebar body";
       }
-      .posts-wrapper {
-        display: flex;
-      }
-      .topic-above-posts-outlet.category-sidebar {
-        position: sticky;
-      }
   }
     &.sidebar-right .contents > .topic-list {
       grid-template-columns: 78% 20%;
@@ -83,6 +77,25 @@
     }
   }
 }
+
+
+// Details sidebar
+@media screen and (min-width: 1050px) {
+  .custom-sidebar {
+    &.sidebar-left {
+      .regular.with-sidebar.left {
+        display: grid;
+        grid-template-areas: "sidebar .";
+        > span:first-of-type {
+          grid-area: sidebar;
+          grid-row: span 10;
+          max-width: 250px;
+        }
+      }
+    }
+  }
+}
+// End Details sidebar
 
 .custom-sidebar {
   #list-area .show-more.has-topics .alert {

@@ -51,6 +51,7 @@ createWidget("details-sidebar", {
     if (sidebarWrapper) {
       sidebarWrapper.style.maxHeight = sidebarMaxHeight;
       sidebarWrapper.style.top = sidebarTop;
+      sidebarWrapper.style.position = settings.stick_on_scroll ? "sticky" : "";
     }
   },
 
@@ -61,6 +62,9 @@ createWidget("details-sidebar", {
     const isCategoryTopicList = currentRouteParams.hasOwnProperty(
       "category_slug_path_with_id"
     );
+
+    console.log(router, 'router');
+    console.log(currentRouteParams, 'currentRouteParams');
 
     if (setups["all"] && !isCategoryTopicList) {
       return createSidebar.call(this, "all");
