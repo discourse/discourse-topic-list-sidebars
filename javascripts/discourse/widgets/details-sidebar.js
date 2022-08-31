@@ -58,13 +58,11 @@ createWidget("details-sidebar", {
   html() {
     const router = getOwner(this).lookup("router:main");
     const currentRouteParams = router.currentRoute.parent.params;
-    console.log(currentRouteParams, 'detailsRoute');
     const isDetailTopic = currentRouteParams.hasOwnProperty(
       "slug"
     );
 
-    console.log(router, 'router');
-    console.log(currentRouteParams, 'currentRouteParams');
+    console.log(setups, 'setups');
 
     if (setups["all"] && !isDetailTopic) {
       return createSidebar.call(this, "all");
@@ -72,16 +70,7 @@ createWidget("details-sidebar", {
       const detailsSlug = currentRouteParams.slug
 
       // If set, show category sidebar
-
-      if (detailsSlug) {
-        return createSidebar.call(this, detailsSlug);
-      }
-
-      // if set, subcategory without its own sidebar will inherit parent category's sidebar
-
-      if (
-        setups[detailsSlug]
-      ) {
+      if (detailsSlug && setups[detailsSlug]) {
         return createSidebar.call(this, detailsSlug);
       }
     }
