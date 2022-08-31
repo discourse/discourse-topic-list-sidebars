@@ -15,17 +15,15 @@ setup:
 
 setupDetails:
   type: list
-  default: "all, 719"
+  default: "front-reliability, 719"
   description: |
-    WIP<br/>
-    Each line should be in the format of "<code>tag</code>, <code>ID</code>".<br/> (e.g., sdk, 3)<br/>
+    Each line should be in the format of "<code>slug</code>, <code>ID</code>".<br/> (e.g., front-reliability, 719)<br/>
     <ul>
-    <li>The tag is the tag from actual topic, for example if your topic contains sdk tag, you should use <b>sdk</b></li>
+    <li>The slug is the slug name from its url, for example if your topic is located at community.marfeel.com/t/front-reliability/7141/14, you would use <b>front-reliability</b></li>
 
     <li>The topic ID is the first number in its url, for from the url community.example.com/t/welcome-to-discourse/8/10, you would use <b>8</b> in the setting</li>
 
     </ul>
-    <p>For performance reasons it's recommended that you close sidebar topics so there aren't any replies</p>
     <p>Note that for a user to be able to see the sidebar, they must be able to access the topic. A topic in a protected category will not be visible as a sidebar to all users. If you don't want a sidebar topic to appear in your topic details, you can unlist it.</p>
 
 

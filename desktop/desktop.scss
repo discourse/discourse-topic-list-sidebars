@@ -5,6 +5,9 @@
       display: none;
     }
   }
+  .regular.with-sidebar.left {
+    display: none;
+  }
 }
 @media screen and (min-width: 767px) {
   // Show the sidebar at 767px
