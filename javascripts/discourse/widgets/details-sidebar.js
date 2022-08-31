@@ -26,7 +26,7 @@ function createSidebar(taxonomy) {
     .querySelector("body")
     .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
   document
-    .querySelector(".topic-list") // topic list and post details
+    .querySelector("#main-outlet > .regular") // topic list and post details
     .classList.add("with-sidebar", settings.sidebar_side);
 
   return h(
@@ -36,9 +36,9 @@ function createSidebar(taxonomy) {
 }
 
 const postCache = {};
-const setups = parseSetups(settings.setup);
+const setups = parseSetups(settings.setupDetails);
 
-createWidget("category-sidebar", {
+createWidget("details-sidebar", {
   tagName: "div.sticky-sidebar",
 
   init() {
@@ -57,6 +57,7 @@ createWidget("category-sidebar", {
   html() {
     const router = getOwner(this).lookup("router:main");
     const currentRouteParams = router.currentRoute.params;
+    console.log(currentRouteParams, 'detailsRoute');
     const isCategoryTopicList = currentRouteParams.hasOwnProperty(
       "category_slug_path_with_id"
     );
@@ -97,7 +98,7 @@ createWidget("category-sidebar", {
       .querySelector("body")
       .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
     document
-      .querySelector(".topic-list")
+      .querySelector("#main-outlet > .regular")
       .classList.remove("with-sidebar", settings.sidebar_side);
   },
 
