@@ -57,7 +57,7 @@ createWidget("details-sidebar", {
 
   html() {
     const router = getOwner(this).lookup("controller:application");
-    const currentRouteParams = router.currentRoute.parent.params;
+    const currentRouteParams = router.currentRoute;
     const isDetailTopic = currentRouteParams.hasOwnProperty(
       "slug"
     );
