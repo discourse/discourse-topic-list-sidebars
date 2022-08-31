@@ -93,7 +93,8 @@
         > span:first-of-type {
           grid-area: sidebar;
           grid-row: span 10;
-          max-width: 250px;
+          max-width: 230px;
+          min-width: 230px;
         }
       }
     }
@@ -118,6 +119,36 @@
     }
     .details-sidebar {
       height: 100%;
+    }
+  }
+  // Styles collapsable
+  .category-sidebar {
+    ul {
+      margin-left: 10px;
+      margin-block: 10px;
+    }
+    .cooked > ul {
+      padding-left: 0;
+    }
+    details {
+      > summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row-reverse;
+        &::before {
+          content: "/203A";
+          font-size: 25px;
+          margin-left: auto;
+          margin-right: unset;
+          line-height: 1;
+        }
+      }
+      &.open > summary {
+        &::before {
+          transform: rotate(90deg);
+        }
+      }
     }
   }
 }

@@ -26,7 +26,7 @@ function createSidebar(taxonomy) {
     .querySelector("body")
     .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
   document
-    .querySelector("#main-outlet > .regular") // topic list and post details
+    .querySelector("#main-outlet > .regular")
     .classList.add("with-sidebar", settings.sidebar_side);
 
   return h(
