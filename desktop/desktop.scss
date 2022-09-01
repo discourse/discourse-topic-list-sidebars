@@ -130,6 +130,9 @@
     .cooked > ul {
       padding-left: 0;
     }
+    .cooked > details, li {
+      padding-left: 8px;
+    }
     details {
       > summary {
         display: flex;
