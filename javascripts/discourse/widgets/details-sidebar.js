@@ -65,19 +65,21 @@ createWidget("details-sidebar", {
 
     // If currentTopic, add active class into li with contains in href the id of currentTopic
     if (idCurrentTopic) {
-      const currentSidebarItem = document.querySelector(
-        "a[href*='" + currentRouteParams.id + "']"
-      );
+      window.addEventListener("load", function () {
+        const currentSidebarItem = document.querySelector(
+          "a[href*='" + currentRouteParams.id + "']"
+        );
 
-      if (currentSidebarItem) {
-        currentSidebarItem.parentElement.classList.add("active");
-        console.log('active li');
-        // Set details open to true
-        if (currentSidebarItem.parentElement.parentElement.parentElement.tagName === "details") {
-          console.log('details open');
-          currentSidebarItem.parentElement.parentElement.parentElement.open = true;
+        console.log(currentSidebarItem);
+
+        if (currentSidebarItem) {
+          currentSidebarItem.classList.add("active");
+          if (currentSidebarItem.parentElement.parentElement.parentElement.tagName === "details") {
+            console.log('details open');
+            currentSidebarItem.parentElement.parentElement.parentElement.open = true;
+          }
         }
-      }
+      });
     }
 
     if (setups["all"] && !isDetailTopic) {
@@ -91,12 +93,12 @@ createWidget("details-sidebar", {
       }
     }
     // Remove classes if no sidebar returned
-    document
-      .querySelector("body")
-      .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
-    document
-      .querySelector("#main-outlet > .regular")
-      .classList.remove("with-sidebar", settings.sidebar_side);
+    // document
+    //   .querySelector("body")
+    //   .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
+    // document
+    //   .querySelector("#main-outlet > .regular")
+    //   .classList.remove("with-sidebar", settings.sidebar_side);
   },
 
   getPost(id) {

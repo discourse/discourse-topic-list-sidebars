@@ -130,18 +130,15 @@
       li {
         list-style: none;
         padding-block: 3px;
-        .active {
-          a {
-            color: var(--tertiary);
-            font-weight: 600;
-          }
-        }
       }
     }
     a {
       color: var(--primary);
-      &:hover {
+      &:hover, &.active {
         color: var(--tertiary);
+      }
+      &.active {
+        font-weight: 600;
       }
     }
     .cooked > ul {
@@ -152,6 +149,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        padding-block: 3px;
         &::before {
           content: "";
           border: solid rgba(29,53,93,.35);
