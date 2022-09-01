@@ -18,27 +18,9 @@ function parseSetups(raw) {
   return parsed;
 }
 
-function createSidebar(taxonomy, isCategory, idTopic) {
+function createSidebar(taxonomy, isCategory) {
   const setup = isCategory ? setupByCategory[taxonomy] : setups[taxonomy];
   const post = [this.getPost(setup["post"])];
-
-  const currentSidebarItem = document.querySelector(
-    "li a[href*='" + idTopic + "']"
-  );
-
-  if (currentSidebarItem) {
-    currentSidebarItem.classList.add("active");
-    if (currentSidebarItem.closest("details")) {
-      currentSidebarItem.closest("details").setAttribute("open", "");
-    }
-  }
-
-  document
-    .querySelector("body")
-    .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
-  document
-    .querySelector("#main-outlet > .regular")
-    .classList.add("with-sidebar", settings.sidebar_side);
 
   return h(
     "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
@@ -65,6 +47,13 @@ createWidget("details-sidebar", {
       sidebarWrapper.style.top = settings.stick_on_scroll ? sidebarTop : undefined;
       sidebarWrapper.style.position = settings.stick_on_scroll ? "sticky" : "";
     }
+
+    document
+      .querySelector("body")
+      .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
+    document
+      .querySelector("#main-outlet > .regular")
+      .classList.add("with-sidebar", settings.sidebar_side);
   },
 
   html() {
@@ -75,15 +64,29 @@ createWidget("details-sidebar", {
       "slug"
     );
 
+    window.addEventListener("ready", () => {
+      const currentSidebarItem = document.querySelector(
+        "li a[href*='" + currentRouteParams.id + "']"
+      );
+
+      if (currentSidebarItem) {
+        currentSidebarItem.classList.add("active");
+        if (currentSidebarItem.closest("details")) {
+          currentSidebarItem.closest("details").setAttribute("open", "");
+        }
+      }
+
+    });
+
     if (setups["all"] && !isDetailTopic) {
       return createSidebar.call(this, "all");
     } else if (isDetailTopic) {
       const detailsSlug = currentRouteParams.slug
 
       if (detailsSlug && setups[detailsSlug]) {
-        return createSidebar.call(this, detailsSlug, false, currentRouteParams.id);
+        return createSidebar.call(this, detailsSlug, false);
       } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
-        return createSidebar.call(this, currentCategoryId, true, currentRouteParams.id);
+        return createSidebar.call(this, currentCategoryId, true);
       }
     }
 
