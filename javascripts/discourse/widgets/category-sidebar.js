@@ -61,6 +61,8 @@ createWidget("category-sidebar", {
       "category_slug_path_with_id"
     );
 
+    console.log('routerCategory', router);
+
     if (setups["all"] && !isCategoryTopicList) {
       return createSidebar.call(this, "all");
     } else if (isCategoryTopicList) {

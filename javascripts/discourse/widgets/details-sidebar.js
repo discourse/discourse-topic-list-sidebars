@@ -56,29 +56,50 @@ createWidget("details-sidebar", {
   },
 
   html() {
-    const router = getOwner(this).lookup("router:main");
-    const currentRouteParams = router.currentRoute.parent.params;
-    const isDetailTopic = currentRouteParams.hasOwnProperty(
-      "slug"
-    );
+    // When change URL, recreate sidebar
+    window.addEventListener("popstate", () => {
+      const router = getOwner(this).lookup("router:main");
+      const currentRouteParams = router.currentRoute.parent.params;
+      const isDetailTopic = currentRouteParams.hasOwnProperty(
+        "slug"
+      );
+      const idCurrentTopic = currentRouteParams.hasOwnProperty("id");
 
-    if (setups["all"] && !isDetailTopic) {
-      return createSidebar.call(this, "all");
-    } else if (isDetailTopic) {
-      const detailsSlug = currentRouteParams.slug
+      // If currentTopic, add active class into li with contains in href the id of currentTopic
+      if (idCurrentTopic) {
+        const currentSidebarItem = document.querySelector(
+          "a[href*='" + currentRouteParams.id + "']"
+        );
 
-      // If set, show category sidebar
-      if (detailsSlug && setups[detailsSlug]) {
-        return createSidebar.call(this, detailsSlug);
+        if (currentSidebarItem) {
+          currentSidebarItem.parentElement.classList.add("active");
+          console.log('active li');
+          // Set details open to true
+          if (currentSidebarItem.parentElement.parentElement.parentElement.tagName === "details") {
+            console.log('details open');
+            currentSidebarItem.parentElement.parentElement.parentElement.open = true;
+          }
+        }
       }
-    }
-    // Remove classes if no sidebar returned
-    document
-      .querySelector("body")
-      .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
-    document
-      .querySelector("#main-outlet > .regular")
-      .classList.remove("with-sidebar", settings.sidebar_side);
+
+      if (setups["all"] && !isDetailTopic) {
+        return createSidebar.call(this, "all");
+      } else if (isDetailTopic) {
+        const detailsSlug = currentRouteParams.slug
+
+        // If set, show category sidebar
+        if (detailsSlug && setups[detailsSlug]) {
+          return createSidebar.call(this, detailsSlug);
+        }
+      }
+      // Remove classes if no sidebar returned
+      document
+        .querySelector("body")
+        .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
+      document
+        .querySelector("#main-outlet > .regular")
+        .classList.remove("with-sidebar", settings.sidebar_side);
+    })
   },
 
   getPost(id) {
