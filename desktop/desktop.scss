@@ -86,7 +86,7 @@
 @media screen and (min-width: 1050px) {
   .custom-sidebar {
     &.sidebar-left {
-      .regular.with-sidebar.left {
+      #main-outlet > .regular {
         display: grid;
         grid-template-areas: "sidebar .";
         .details-sidebar { display: block; }

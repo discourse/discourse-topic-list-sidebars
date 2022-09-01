@@ -64,19 +64,7 @@ createWidget("details-sidebar", {
       "slug"
     );
 
-    new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === "childList") {
-          console.log('body changed');
-          document
-            .querySelector("#main-outlet > .regular")
-            .classList.add("with-sidebar", settings.sidebar_side);
-        }
-      });
-    }).observe(document.body, { childList: true });
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
+    window.addEventListener("load", () => {
         const currentSidebarItem = document.querySelector(
           "li a[href*='" + currentRouteParams.id + "']"
         );
@@ -86,12 +74,6 @@ createWidget("details-sidebar", {
             currentSidebarItem.closest("details").setAttribute("open", "");
           }
         }
-      });
-    });
-
-    // Start observing the target node for configured mutations
-    observer.observe(document.querySelector(".category-sidebar"), {
-      childList: true
     });
 
     if (setups["all"] && !isDetailTopic) {
