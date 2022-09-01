@@ -64,18 +64,27 @@ createWidget("details-sidebar", {
       "slug"
     );
 
-    window.addEventListener("ready", () => {
-      const currentSidebarItem = document.querySelector(
-        "li a[href*='" + currentRouteParams.id + "']"
-      );
-
-      if (currentSidebarItem) {
-        currentSidebarItem.classList.add("active");
-        if (currentSidebarItem.closest("details")) {
-          currentSidebarItem.closest("details").setAttribute("open", "");
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        const currentSidebarItem = document.querySelector(
+          "li a[href*='" + currentRouteParams.id + "']"
+        );
+        if (currentSidebarItem) {
+          currentSidebarItem.classList.add("active");
+          if (currentSidebarItem.closest("details")) {
+            currentSidebarItem.closest("details").setAttribute("open", "");
+          }
         }
-      }
 
+        this.scheduleRerender();
+      });
+    });
+
+    // Start observing the target node for configured mutations
+    observer.observe(document.querySelector(".category-sidebar"), {
+      attributes: true,
+      childList: true,
+      subtree: true,
     });
 
     if (setups["all"] && !isDetailTopic) {
@@ -89,14 +98,6 @@ createWidget("details-sidebar", {
         return createSidebar.call(this, currentCategoryId, true);
       }
     }
-
-    // Remove classes if no sidebar returned
-    document
-      .querySelector("body")
-      .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
-    document
-      .querySelector("#main-outlet > .regular")
-      .classList.remove("with-sidebar", settings.sidebar_side);
   },
 
   getPost(id) {
