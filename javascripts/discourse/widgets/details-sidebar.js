@@ -52,7 +52,7 @@ createWidget("details-sidebar", {
       .querySelector("body")
       .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
     document
-      .querySelector("#main-outlet > .regular")
+      .querySelector("#main-outlet > .container+div")
       .classList.add("with-sidebar", settings.sidebar_side);
   },
 
@@ -68,12 +68,29 @@ createWidget("details-sidebar", {
       mutations.forEach((mutation) => {
         if (mutation.type === "childList") {
           console.log("Sidebar changed");
+          const activeItem = document.querySelector("li a.active");
+          if (activeItem) {
+            activeItem.classList.remove("active");
+            if (activeItem.closest("details")) {
+              activeItem.closest("details").open = false;
+            }
+          }
+          const currentSidebarItem = document.querySelector(
+            "li a[href*='" + currentRouteParams.id + "']"
+          );
+          if (currentSidebarItem) {
+            currentSidebarItem.classList.add("active");
+            if (currentSidebarItem.closest("details")) {
+              currentSidebarItem.closest("details").setAttribute("open", "");
+            }
+            console.log('active');
+          }
         }
       });
     });
 
     const sidebar = document.getElementsByClassName("category-sidebar")[0];
-    observer.observe(sidebar, { childList: true });
+    observer.observe(sidebar, { childList: true, subtree: true });
 
     window.addEventListener("load", () => {
       const activeItem = document.querySelector("li a.active");
