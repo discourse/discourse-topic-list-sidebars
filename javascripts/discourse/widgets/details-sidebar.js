@@ -64,6 +64,17 @@ createWidget("details-sidebar", {
       "slug"
     );
 
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
+          console.log("Sidebar changed");
+        }
+      });
+    });
+
+    const sidebar = document.getElementsByClassName("category-sidebar")[0];
+    observer.observe(sidebar, { childList: true });
+
     window.addEventListener("load", () => {
       const activeItem = document.querySelector("li a.active");
       if (activeItem) {
@@ -80,8 +91,11 @@ createWidget("details-sidebar", {
           if (currentSidebarItem.closest("details")) {
             currentSidebarItem.closest("details").setAttribute("open", "");
           }
+
+          this.scheduleRerender();
+          console.log('active');
         }
-        console.log('load');
+
     });
 
     if (setups["all"] && !isDetailTopic) {
