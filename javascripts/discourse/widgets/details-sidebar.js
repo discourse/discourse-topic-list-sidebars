@@ -18,9 +18,25 @@ function parseSetups(raw) {
   return parsed;
 }
 
-function createSidebar(taxonomy, isCategory = false) {
-  console.log(isCategory);
-  const setup = !isCategory ? setups[taxonomy] : setupByCategory[taxonomy];
+function createSidebar(taxonomy) {
+  const setup = setups[taxonomy];
+  const post = [this.getPost(setup["post"])];
+
+  document
+    .querySelector("body")
+    .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
+  document
+    .querySelector("#main-outlet > .regular")
+    .classList.add("with-sidebar", settings.sidebar_side);
+
+  return h(
+    "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
+    post
+  );
+}
+
+function createSidebarCategory(taxonomy) {
+  const setup = setupByCategory[taxonomy];
   const post = [this.getPost(setup["post"])];
 
   document
@@ -95,9 +111,9 @@ createWidget("details-sidebar", {
       // If set, show category sidebar
       if (detailsSlug && setups[detailsSlug]) {
         return createSidebar.call(this, detailsSlug);
+      } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
+        return createSidebarCategory.call(this, currentCategoryId);
       }
-    } else if (currentCategoryId && setupByCategory[currentCategoryId.toString()]) {
-      return createSidebar.call(this, currentCategoryId.toString(), true);
     }
 
     // Remove classes if no sidebar returned
