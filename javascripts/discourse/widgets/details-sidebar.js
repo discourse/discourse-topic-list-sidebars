@@ -64,6 +64,17 @@ createWidget("details-sidebar", {
       "slug"
     );
 
+    new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
+          console.log('body changed');
+          document
+            .querySelector("#main-outlet > .regular")
+            .classList.add("with-sidebar", settings.sidebar_side);
+        }
+      });
+    }).observe(document.body, { childList: true });
+
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         const currentSidebarItem = document.querySelector(
@@ -75,16 +86,12 @@ createWidget("details-sidebar", {
             currentSidebarItem.closest("details").setAttribute("open", "");
           }
         }
-
-        this.scheduleRerender();
       });
     });
 
     // Start observing the target node for configured mutations
     observer.observe(document.querySelector(".category-sidebar"), {
-      attributes: true,
-      childList: true,
-      subtree: true,
+      childList: true
     });
 
     if (setups["all"] && !isDetailTopic) {

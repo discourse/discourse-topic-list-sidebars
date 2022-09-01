@@ -15,7 +15,7 @@ setup:
 
 setupDetails:
   type: list
-  default: "front-reliability, 719"
+  default: ""
   description: |
     Each line should be in the format of "<code>slug</code>, <code>ID</code>".<br/> (e.g., front-reliability, 719)<br/>
     <ul>
