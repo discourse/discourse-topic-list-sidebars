@@ -74,9 +74,8 @@ createWidget("details-sidebar", {
 
         if (currentSidebarItem) {
           currentSidebarItem.classList.add("active");
-          if (currentSidebarItem.parentElement.parentElement.parentElement.tagName === "details") {
-            console.log('details open');
-            currentSidebarItem.parentElement.parentElement.parentElement.open = true;
+          if (currentSidebarItem.closest("details")) {
+            currentSidebarItem.closest("details").setAttribute("open", "");
           }
         }
       });
