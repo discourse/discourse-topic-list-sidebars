@@ -37,6 +37,7 @@ function createSidebar(taxonomy) {
 
 const postCache = {};
 const setups = parseSetups(settings.setupDetails);
+const setupByCategory = parseSetups(settings.setup_by_category_id);
 
 createWidget("details-sidebar", {
   tagName: "div.sticky-sidebar",
@@ -58,6 +59,7 @@ createWidget("details-sidebar", {
   html() {
     const router = getOwner(this).lookup("router:main");
     const currentRouteParams = router.currentRoute.parent.params;
+    const currentCategoryId = router.currentRoute?.parent?.attributes?.category_id || 0;
     const isDetailTopic = currentRouteParams.hasOwnProperty(
       "slug"
     );
@@ -90,6 +92,8 @@ createWidget("details-sidebar", {
       if (detailsSlug && setups[detailsSlug]) {
         return createSidebar.call(this, detailsSlug);
       }
+    } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
+      return createSidebar.call(this, currentCategoryId);
     }
 
     // Remove classes if no sidebar returned

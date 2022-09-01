@@ -26,6 +26,16 @@ setupDetails:
     </ul>
     <p>Note that for a user to be able to see the sidebar, they must be able to access the topic. A topic in a protected category will not be visible as a sidebar to all users. If you don't want a sidebar topic to appear in your topic details, you can unlist it.</p>
 
+setup_by_category_id:
+  type: list
+  default: "58, 719"
+  description: |
+    Each line should be in the format of "<code>category id</code>, <code>ID</code>".<br/> (e.g., 58, 719)<br/>
+    <ul>
+    <li>The category id is the id from category url, for example if your category is located at community.marfeel.com/c/marfeel-docs/instrumentation/58, you would use <b>58</b></li>
+    <li>The topic ID is the first number in its url, for from the url community.example.com/t/welcome-to-discourse/8/10, you would use <b>8</b> in the setting</li>
+    </ul>
+    <p>Note that for a user to be able to see the sidebar, they must be able to access the topic. A topic in a protected category will not be visible as a sidebar to all users. If you don't want a sidebar topic to appear in your topic list, you can unlist it.</p>
 
 sidebar_side:
   default: left
