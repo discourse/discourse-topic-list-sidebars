@@ -130,6 +130,7 @@
       li {
         list-style: none;
         padding-block: 3px;
+        font-size: var(--base-font-size-smaller);
       }
     }
     a {
@@ -150,9 +151,11 @@
         align-items: center;
         gap: 8px;
         padding-block: 3px;
+        font-weight: 500;
+        font-size: var(--base-font-size);
         &::before {
           content: "";
-          border: solid rgba(29,53,93,.35);
+          border: solid rgba(var(--primary-rgb),.35);
           border-width: 0 3px 3px 0;
           width: 0.4rem;
           height: 0.4rem;

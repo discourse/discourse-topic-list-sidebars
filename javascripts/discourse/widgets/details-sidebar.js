@@ -50,7 +50,7 @@ createWidget("details-sidebar", {
     let sidebarMaxHeight = "calc(100vh - " + (headerHeight + 40) + "px)";
     if (sidebarWrapper) {
       sidebarWrapper.style.maxHeight = sidebarMaxHeight;
-      sidebarWrapper.style.top = sidebarTop;
+      sidebarWrapper.style.top = !settings.stick_on_scroll ? sidebarTop : undefined;
       sidebarWrapper.style.position = settings.stick_on_scroll ? "sticky" : "";
     }
   },
@@ -67,7 +67,7 @@ createWidget("details-sidebar", {
     if (idCurrentTopic) {
       window.addEventListener("load", function () {
         const currentSidebarItem = document.querySelector(
-          "a[href*='" + currentRouteParams.id + "']"
+          "li a[href*='" + currentRouteParams.id + "']"
         );
 
         console.log(currentSidebarItem);
@@ -91,13 +91,14 @@ createWidget("details-sidebar", {
         return createSidebar.call(this, detailsSlug);
       }
     }
+
     // Remove classes if no sidebar returned
-    // document
-    //   .querySelector("body")
-    //   .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
-    // document
-    //   .querySelector("#main-outlet > .regular")
-    //   .classList.remove("with-sidebar", settings.sidebar_side);
+    document
+      .querySelector("body")
+      .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
+    document
+      .querySelector("#main-outlet > .regular")
+      .classList.remove("with-sidebar", settings.sidebar_side);
   },
 
   getPost(id) {
