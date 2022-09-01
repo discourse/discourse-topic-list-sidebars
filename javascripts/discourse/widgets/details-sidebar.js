@@ -65,6 +65,13 @@ createWidget("details-sidebar", {
     );
 
     window.addEventListener("load", () => {
+      const activeItem = document.querySelector("li a.active");
+      if (activeItem) {
+        activeItem.classList.remove("active");
+        if (activeItem.closest("details")) {
+          activeItem.closest("details").open = false;
+        }
+      }
         const currentSidebarItem = document.querySelector(
           "li a[href*='" + currentRouteParams.id + "']"
         );
@@ -74,6 +81,7 @@ createWidget("details-sidebar", {
             currentSidebarItem.closest("details").setAttribute("open", "");
           }
         }
+        console.log('load');
     });
 
     if (setups["all"] && !isDetailTopic) {
