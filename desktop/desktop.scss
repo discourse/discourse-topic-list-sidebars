@@ -56,21 +56,6 @@
           position: sticky;
           overflow-y: auto;
         }
-        .cooked {
-          img,
-          video,
-          iframe {
-            width: 100%;
-            height: auto;
-          }
-          img.emoji {
-            width: 20px;
-          }
-          ul,
-          ol {
-            padding-left: 30px;
-          }
-        }
       }
       .topic-list-body {
         grid-area: body;
