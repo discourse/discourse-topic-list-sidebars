@@ -76,7 +76,7 @@ createWidget("details-sidebar", {
             }
           }
           const currentSidebarItem = document.querySelector(
-            "li a[href*='" + currentRouteParams.id + "']"
+            "li a[href*='" + currentRouteParams.id + "']:not(.active)"
           );
           if (currentSidebarItem) {
             currentSidebarItem.classList.add("active");
@@ -84,6 +84,7 @@ createWidget("details-sidebar", {
               currentSidebarItem.closest("details").setAttribute("open", "");
             }
             console.log('active mutation');
+            this.scheduleRerender();
           }
         }
       });
@@ -91,29 +92,6 @@ createWidget("details-sidebar", {
 
     const topicBody = document.getElementById("main-outlet");
     observer.observe(topicBody, { childList: true, subtree: true });
-
-    window.addEventListener("load", () => {
-      const activeItem = document.querySelector("li a.active");
-      if (activeItem) {
-        activeItem.classList.remove("active");
-        if (activeItem.closest("details")) {
-          activeItem.closest("details").open = false;
-        }
-      }
-        const currentSidebarItem = document.querySelector(
-          "li a[href*='" + currentRouteParams.id + "']"
-        );
-        if (currentSidebarItem) {
-          currentSidebarItem.classList.add("active");
-          if (currentSidebarItem.closest("details")) {
-            currentSidebarItem.closest("details").setAttribute("open", "");
-          }
-
-          this.scheduleRerender();
-          console.log('active');
-        }
-
-    });
 
     if (setups["all"] && !isDetailTopic) {
       return createSidebar.call(this, "all");
