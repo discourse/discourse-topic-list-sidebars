@@ -67,7 +67,8 @@ createWidget("details-sidebar", {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === "childList") {
-          console.log("Sidebar changed");
+          const rt = getOwner(this).lookup("router:main");
+          const currentRT = rt.currentRoute.parent.params;
           const activeItem = document.querySelector("li a.active");
           if (activeItem) {
             activeItem.classList.remove("active");
@@ -76,15 +77,13 @@ createWidget("details-sidebar", {
             }
           }
           const currentSidebarItem = document.querySelector(
-            "li a[href*='" + currentRouteParams.id + "']:not(.active)"
+            "li a[href*='" + currentRT.id + "']:not(.active)"
           );
           if (currentSidebarItem) {
             currentSidebarItem.classList.add("active");
             if (currentSidebarItem.closest("details")) {
               currentSidebarItem.closest("details").setAttribute("open", "");
             }
-            console.log('active mutation');
-            this.scheduleRerender();
           }
         }
       });
