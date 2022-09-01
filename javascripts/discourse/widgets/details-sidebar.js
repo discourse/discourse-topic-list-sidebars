@@ -83,14 +83,14 @@ createWidget("details-sidebar", {
             if (currentSidebarItem.closest("details")) {
               currentSidebarItem.closest("details").setAttribute("open", "");
             }
-            console.log('active');
+            console.log('active mutation');
           }
         }
       });
     });
 
-    const sidebar = document.getElementsByClassName("category-sidebar")[0];
-    observer.observe(sidebar, { childList: true, subtree: true });
+    const topicBody = document.getElementById("main-outlet");
+    observer.observe(topicBody, { childList: true, subtree: true });
 
     window.addEventListener("load", () => {
       const activeItem = document.querySelector("li a.active");
