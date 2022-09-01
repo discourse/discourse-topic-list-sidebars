@@ -18,26 +18,20 @@ function parseSetups(raw) {
   return parsed;
 }
 
-function createSidebar(taxonomy) {
-  const setup = setups[taxonomy];
+function createSidebar(taxonomy, isCategory, idTopic) {
+  const setup = isCategory ? setupByCategory[taxonomy] : setups[taxonomy];
   const post = [this.getPost(setup["post"])];
 
-  document
-    .querySelector("body")
-    .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
-  document
-    .querySelector("#main-outlet > .regular")
-    .classList.add("with-sidebar", settings.sidebar_side);
-
-  return h(
-    "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
-    post
+  const currentSidebarItem = document.querySelector(
+    "li a[href*='" + idTopic + "']"
   );
-}
 
-function createSidebarCategory(taxonomy) {
-  const setup = setupByCategory[taxonomy];
-  const post = [this.getPost(setup["post"])];
+  if (currentSidebarItem) {
+    currentSidebarItem.classList.add("active");
+    if (currentSidebarItem.closest("details")) {
+      currentSidebarItem.closest("details").setAttribute("open", "");
+    }
+  }
 
   document
     .querySelector("body")
@@ -80,39 +74,16 @@ createWidget("details-sidebar", {
     const isDetailTopic = currentRouteParams.hasOwnProperty(
       "slug"
     );
-    const idCurrentTopic = currentRouteParams.hasOwnProperty("id");
-
-    console.log(router, 'router');
-    console.log(setupByCategory, 'setupByCategory');
-
-    // If currentTopic, add active class into li with contains in href the id of currentTopic
-    if (idCurrentTopic) {
-      window.addEventListener("load", function () {
-        const currentSidebarItem = document.querySelector(
-          "li a[href*='" + currentRouteParams.id + "']"
-        );
-
-        console.log(currentSidebarItem);
-
-        if (currentSidebarItem) {
-          currentSidebarItem.classList.add("active");
-          if (currentSidebarItem.closest("details")) {
-            currentSidebarItem.closest("details").setAttribute("open", "");
-          }
-        }
-      });
-    }
 
     if (setups["all"] && !isDetailTopic) {
       return createSidebar.call(this, "all");
     } else if (isDetailTopic) {
       const detailsSlug = currentRouteParams.slug
 
-      // If set, show category sidebar
       if (detailsSlug && setups[detailsSlug]) {
-        return createSidebar.call(this, detailsSlug);
+        return createSidebar.call(this, detailsSlug, false, currentRouteParams.id);
       } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
-        return createSidebarCategory.call(this, currentCategoryId);
+        return createSidebar.call(this, currentCategoryId, true, currentRouteParams.id);
       }
     }
 
