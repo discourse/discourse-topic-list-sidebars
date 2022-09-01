@@ -50,7 +50,7 @@ createWidget("category-sidebar", {
     let sidebarMaxHeight = "calc(100vh - " + (headerHeight + 40) + "px)";
     if (sidebarWrapper) {
       sidebarWrapper.style.maxHeight = sidebarMaxHeight;
-      sidebarWrapper.style.top = !settings.stick_on_scroll ? sidebarTop : undefined;
+      sidebarWrapper.style.top = settings.stick_on_scroll ? sidebarTop : undefined;
     }
   },
 

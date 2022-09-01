@@ -18,8 +18,9 @@ function parseSetups(raw) {
   return parsed;
 }
 
-function createSidebar(taxonomy) {
-  const setup = setups[taxonomy];
+function createSidebar(taxonomy, isCategory = false) {
+  console.log(isCategory);
+  const setup = !isCategory ? setups[taxonomy] : setupByCategory[taxonomy];
   const post = [this.getPost(setup["post"])];
 
   document
@@ -51,7 +52,7 @@ createWidget("details-sidebar", {
     let sidebarMaxHeight = "calc(100vh - " + (headerHeight + 40) + "px)";
     if (sidebarWrapper) {
       sidebarWrapper.style.maxHeight = sidebarMaxHeight;
-      sidebarWrapper.style.top = !settings.stick_on_scroll ? sidebarTop : undefined;
+      sidebarWrapper.style.top = settings.stick_on_scroll ? sidebarTop : undefined;
       sidebarWrapper.style.position = settings.stick_on_scroll ? "sticky" : "";
     }
   },
@@ -64,6 +65,9 @@ createWidget("details-sidebar", {
       "slug"
     );
     const idCurrentTopic = currentRouteParams.hasOwnProperty("id");
+
+    console.log(router, 'router');
+    console.log(setupByCategory, 'setupByCategory');
 
     // If currentTopic, add active class into li with contains in href the id of currentTopic
     if (idCurrentTopic) {
@@ -92,8 +96,8 @@ createWidget("details-sidebar", {
       if (detailsSlug && setups[detailsSlug]) {
         return createSidebar.call(this, detailsSlug);
       }
-    } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
-      return createSidebar.call(this, currentCategoryId);
+    } else if (currentCategoryId && setupByCategory[currentCategoryId.toString()]) {
+      return createSidebar.call(this, currentCategoryId.toString(), true);
     }
 
     // Remove classes if no sidebar returned
