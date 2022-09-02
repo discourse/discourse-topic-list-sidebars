@@ -60,7 +60,7 @@ createWidget("category-sidebar", {
     const isCategoryTopicList = currentRouteParams.hasOwnProperty(
       "category_slug_path_with_id"
     );
-    const previousURL = '';
+    let previousURL = '';
 
     new MutationObserver(() => {
       if (location.href !== previousURL) {
