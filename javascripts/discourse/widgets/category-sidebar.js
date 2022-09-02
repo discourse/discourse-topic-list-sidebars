@@ -165,6 +165,10 @@ createWidget("category-sidebar", {
         return createSidebar.call(this, categorySlug);
       }
     }
+    // Remove classes if no sidebar returned
+    document
+      .querySelector(".topic-list")
+      .classList.remove("with-sidebar", settings.sidebar_side);
   },
 
   getPost(id) {

@@ -57,18 +57,18 @@ createWidget("details-sidebar", {
   },
 
   html() {
-    let prevURL = '';
+    const router = getOwner(this).lookup("router:main");
+    const currentRouteParams = router.currentRoute.parent.params;
+    const currentCategoryId = router.currentRoute?.parent?.attributes?.category_id || 0;
+    const isDetailTopic = currentRouteParams.hasOwnProperty(
+      "slug"
+    );
 
     const observer = new MutationObserver((mutations) => {
-      mutations.forEach(() => {
-        if (location.href !== prevUrl) {
-          prevURL = location.href;
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
           const rt = getOwner(this).lookup("router:main");
           const currentRT = rt.currentRoute.parent.params;
-          const currentCategoryId = rt.currentRoute?.parent?.attributes?.category_id || 0;
-          const isDetailTopic = currentRT.hasOwnProperty(
-            "slug"
-          );
           const activeItem = document.querySelector("li a.active");
           if (activeItem) {
             activeItem.classList.remove("active");
@@ -83,18 +83,6 @@ createWidget("details-sidebar", {
             currentSidebarItem.classList.add("active");
             if (currentSidebarItem.closest("details")) {
               currentSidebarItem.closest("details").setAttribute("open", "");
-            }
-          }
-
-          if (setups["all"] && !isDetailTopic) {
-            return createSidebar.call(this, "all");
-          } else if (isDetailTopic) {
-            const detailsSlug = currentRT.slug
-
-            if (detailsSlug && setups[detailsSlug]) {
-              return createSidebar.call(this, detailsSlug, false);
-            } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
-              return createSidebar.call(this, currentCategoryId, true);
             }
           }
         }
