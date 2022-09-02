@@ -19,7 +19,7 @@ function parseSetups(raw) {
 }
 
 function createSidebar(taxonomy, isCategory) {
-  const setup = setups[taxonomy];
+  const setup = isCategory ? setupsByCategoryId[taxonomy] : setups[taxonomy];
   const post = [this.getPost(setup["post"])];
 
   document
@@ -28,16 +28,6 @@ function createSidebar(taxonomy, isCategory) {
   document
     .querySelector(".topic-list")
     .classList.add("with-sidebar", settings.sidebar_side);
-
-  return h(
-    "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
-    post
-  );
-}
-
-function createDetailsSidebar(taxonomy, isCategory) {
-  const setup = isCategory ? setupsByCategoryId[taxonomy] : setupsDetails[taxonomy];
-  const post = [this.getPost(setup["post"])];
 
   return h(
     "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
@@ -65,7 +55,6 @@ function checkActiveItem(detailId) {
 
 const postCache = {};
 const setups = parseSetups(settings.setup);
-const setupsDetails = parseSetups(settings.setupDetails);
 const setupsByCategoryId = parseSetups(settings.setup_by_category_id);
 
 createWidget("category-sidebar", {
@@ -96,10 +85,8 @@ createWidget("category-sidebar", {
       if (location.href !== previousURL && (/\/t\//.test(location.href))) {
         previousURL = location.href;
         const detailsRouter = getOwner(this).lookup("router:main");
-        console.log(detailsRouter);
         const detailsCurrentRouter = detailsRouter.currentRoute.parent.params;
         const detailsCurrentCategoryId = detailsRouter.currentRoute?.parent?.attributes?.category_id || 0;
-        console.log(detailsCurrentCategoryId, 'id');
         const isDetailTopic = currentRouteParams.hasOwnProperty(
           "slug"
         );
@@ -109,15 +96,13 @@ createWidget("category-sidebar", {
         }
 
         if (setups["all"] && !isDetailTopic) {
-          return createcreateDetailsSidebarSidebar.call(this, "all", false);
+          return createSidebar.call(this, "all");
         } else if (isDetailTopic) {
-          console.log('details');
           const detailsSlug = detailsCurrentRouter.slug;
-          if (detailsSlug && setupsDetails[detailsSlug]) {
-            return createDetailsSidebar.call(this, detailsSlug, false);
+          if (detailsSlug && setups[detailsSlug]) {
+            return createSidebar.call(this, detailsSlug, false);
           } else if (detailsCurrentCategoryId && setupsByCategoryId[detailsCurrentCategoryId]) {
-            console.log('category');
-            return createDetailsSidebar.call(this, detailsCurrentCategoryId, true);
+            return createSidebar.call(this, detailsCurrentCategoryId, true);
           }
         }
       }
