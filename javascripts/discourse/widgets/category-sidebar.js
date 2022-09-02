@@ -92,6 +92,11 @@ createWidget("category-sidebar", {
         return createSidebar.call(this, categorySlug);
       }
     }
+    window.addEventListener("popstate", () => {
+      const router = getOwner(this).lookup("router:main");
+      console.log("popstate");
+      console.log(router);
+    });
     // Remove classes if no sidebar returned
     document
       .querySelector(".topic-list")
