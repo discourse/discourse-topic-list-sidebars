@@ -1,8 +1,9 @@
 import { schedule } from "@ember/runloop";
 import { getOwner } from "discourse-common/lib/get-owner";
 import { ajax } from "discourse/lib/ajax";
+import { cleanDOM } from "discourse/lib/clean-dom";
 import PostCooked from "discourse/widgets/post-cooked";
-import { createWidget, reopenWidget } from "discourse/widgets/widget";
+import { createWidget } from "discourse/widgets/widget";
 import { h } from "virtual-dom";
 
 function defaultSettings() {
@@ -70,7 +71,6 @@ createWidget("details-sidebar", {
               this.state.posts = [this.getPost(setupByCategory[rtCategory]["post"])];
             }
           }
-          this.scheduleRerender();
         }
     });
   },
@@ -103,6 +103,10 @@ createWidget("details-sidebar", {
     const isDetailTopic = currentRouteParams.hasOwnProperty(
       "slug"
     );
+
+    router.on("routeDidChange", () => {
+      cleanDOM(this);
+    });
 
     let prevURL = "";
 
