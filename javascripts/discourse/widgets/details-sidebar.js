@@ -40,7 +40,7 @@ createWidget("details-sidebar", {
     schedule("afterRender", this, () => {
         const rt = getOwner(this).lookup("router:main");
 
-        if (!location.href.includes("/t/")) {
+        if (!location.href.includes(rt.currentURL)) {
           console.log('rt');
 
           const rtParams = rt.currentRoute.parent.params;
