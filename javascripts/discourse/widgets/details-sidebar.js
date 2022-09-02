@@ -38,26 +38,10 @@ createWidget("details-sidebar", {
 
   didRenderWidget() {
     schedule("afterRender", this, () => {
-        console.log('rendered');
         const rt = getOwner(this).lookup("router:main");
-        console.log(rt, 'router');
-        const currentRT = rt.currentRoute.parent.params;
-        const activeItem = document.querySelector("li a.active");
 
-        if (activeItem) {
-          activeItem.classList.remove("active");
-          if (activeItem.closest("details")) {
-            activeItem.closest("details").open = false;
-          }
-        }
-
-        const currentSidebarItem = document.querySelector("li a[href*='" + currentRT.id + "']:not(.active)");
-
-        if (currentSidebarItem) {
-          currentSidebarItem.classList.add("active");
-          if (currentSidebarItem.closest("details")) {
-            currentSidebarItem.closest("details").setAttribute("open", "");
-          }
+        if (!location.href.includes(rt.currentURL)) {
+          this.scheduleRerender();
         }
     });
   },
@@ -91,42 +75,42 @@ createWidget("details-sidebar", {
       "slug"
     );
 
-    // let prevURL = "";
+    let prevURL = "";
 
-    // const observer = new MutationObserver((mutations) => {
-    //   if (location.href !== prevURL) {
-    //     prevURL = location.href;
+    const observer = new MutationObserver((mutations) => {
+      if (location.href !== prevURL) {
+        prevURL = location.href;
 
-    //     console.log('test');
-    //     console.log(this, 'this');
-    //   }
-    //   mutations.forEach((mutation) => {
-    //     if (mutation.type === "childList") {
-    //       const rt = getOwner(this).lookup("router:main");
-    //       console.log(rt);
-    //       const currentRT = rt.currentRoute.parent.params;
-    //       const activeItem = document.querySelector("li a.active");
-    //       if (activeItem) {
-    //         activeItem.classList.remove("active");
-    //         if (activeItem.closest("details")) {
-    //           activeItem.closest("details").open = false;
-    //         }
-    //       }
-    //       const currentSidebarItem = document.querySelector(
-    //         "li a[href*='" + currentRT.id + "']:not(.active)"
-    //       );
-    //       if (currentSidebarItem) {
-    //         currentSidebarItem.classList.add("active");
-    //         if (currentSidebarItem.closest("details")) {
-    //           currentSidebarItem.closest("details").setAttribute("open", "");
-    //         }
-    //       }
-    //     }
-    //   });
-    // });
+        console.log('test');
+        console.log(this, 'this');
+      }
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
+          const rt = getOwner(this).lookup("router:main");
+          console.log(rt);
+          const currentRT = rt.currentRoute.parent.params;
+          const activeItem = document.querySelector("li a.active");
+          if (activeItem) {
+            activeItem.classList.remove("active");
+            if (activeItem.closest("details")) {
+              activeItem.closest("details").open = false;
+            }
+          }
+          const currentSidebarItem = document.querySelector(
+            "li a[href*='" + currentRT.id + "']:not(.active)"
+          );
+          if (currentSidebarItem) {
+            currentSidebarItem.classList.add("active");
+            if (currentSidebarItem.closest("details")) {
+              currentSidebarItem.closest("details").setAttribute("open", "");
+            }
+          }
+        }
+      });
+    });
 
-    // const topicBody = document.getElementById("main-outlet");
-    // observer.observe(topicBody, { childList: true, subtree: true });
+    const topicBody = document.getElementById("main-outlet");
+    observer.observe(topicBody, { childList: true, subtree: true });
 
     if (setups["all"] && !isDetailTopic) {
       return createSidebar.call(this, "all");
