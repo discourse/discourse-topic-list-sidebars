@@ -18,7 +18,7 @@ function parseSetups(raw) {
   return parsed;
 }
 
-function createSidebar(taxonomy, isCategory) {
+function createSidebar(taxonomy) {
   const setup = setups[taxonomy];
   const post = [this.getPost(setup["post"])];
 
@@ -97,6 +97,11 @@ createWidget("category-sidebar", {
     new MutationObserver(() => {
       if (location.href !== previousURL && (/\/t\//.test(location.href))) {
         previousURL = location.href;
+
+        document
+          .querySelector("#main-outlet > .container+div")
+          .classList.add("with-sidebar", settings.sidebar_side);
+
         const detailsRouter = getOwner(this).lookup("router:main");
         const detailsCurrentRouter = detailsRouter.currentRoute.parent.params;
         const detailsCurrentCategoryId = detailsRouter.currentRoute?.parent?.attributes?.category_id || 0;
