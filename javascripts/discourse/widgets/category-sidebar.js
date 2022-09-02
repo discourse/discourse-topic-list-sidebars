@@ -69,7 +69,7 @@ createWidget("category-sidebar", {
 
         console.log(router);
       }
-    }).observe(document.body, {
+    }).observe(document.querySelector("body"), {
       childList: true,
       subtree: true
     });
