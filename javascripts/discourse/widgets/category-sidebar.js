@@ -90,41 +90,41 @@ createWidget("category-sidebar", {
     const isCategoryTopicList = currentRouteParams.hasOwnProperty(
       "category_slug_path_with_id"
     );
-    let previousURL = '';
+    // let previousURL = '';
 
-    new MutationObserver(() => {
-      if (location.href !== previousURL && (/\/t\//.test(location.href))) {
-        previousURL = location.href;
-        const detailsRouter = getOwner(this).lookup("router:main");
-        console.log(detailsRouter);
-        const detailsCurrentRouter = detailsRouter.currentRoute.parent.params;
-        const detailsCurrentCategoryId = detailsRouter.currentRoute?.parent?.attributes?.category_id || 0;
-        console.log(detailsCurrentCategoryId, 'id');
-        const isDetailTopic = currentRouteParams.hasOwnProperty(
-          "slug"
-        );
+    // new MutationObserver(() => {
+    //   if (location.href !== previousURL && (/\/t\//.test(location.href))) {
+    //     previousURL = location.href;
+    //     const detailsRouter = getOwner(this).lookup("router:main");
+    //     console.log(detailsRouter);
+    //     const detailsCurrentRouter = detailsRouter.currentRoute.parent.params;
+    //     const detailsCurrentCategoryId = detailsRouter.currentRoute?.parent?.attributes?.category_id || 0;
+    //     console.log(detailsCurrentCategoryId, 'id');
+    //     const isDetailTopic = currentRouteParams.hasOwnProperty(
+    //       "slug"
+    //     );
 
-        if (detailsCurrentRouter) {
-          checkActiveItem(detailsCurrentRouter.id);
-        }
+    //     if (detailsCurrentRouter) {
+    //       checkActiveItem(detailsCurrentRouter.id);
+    //     }
 
-        if (setups["all"] && !isDetailTopic) {
-          return createcreateDetailsSidebarSidebar.call(this, "all", false);
-        } else if (isDetailTopic) {
-          console.log('details');
-          const detailsSlug = detailsCurrentRouter.slug;
-          if (detailsSlug && setupsDetails[detailsSlug]) {
-            return createDetailsSidebar.call(this, detailsSlug, false);
-          } else if (detailsCurrentCategoryId && setupsByCategoryId[detailsCurrentCategoryId]) {
-            console.log('category');
-            return createDetailsSidebar.call(this, detailsCurrentCategoryId, true);
-          }
-        }
-      }
-    }).observe(document.querySelector("body"), {
-      childList: true,
-      subtree: true
-    });
+    //     if (setups["all"] && !isDetailTopic) {
+    //       return createcreateDetailsSidebarSidebar.call(this, "all", false);
+    //     } else if (isDetailTopic) {
+    //       console.log('details');
+    //       const detailsSlug = detailsCurrentRouter.slug;
+    //       if (detailsSlug && setupsDetails[detailsSlug]) {
+    //         return createDetailsSidebar.call(this, detailsSlug, false);
+    //       } else if (detailsCurrentCategoryId && setupsByCategoryId[detailsCurrentCategoryId]) {
+    //         console.log('category');
+    //         return createDetailsSidebar.call(this, detailsCurrentCategoryId, true);
+    //       }
+    //     }
+    //   }
+    // }).observe(document.querySelector("body"), {
+    //   childList: true,
+    //   subtree: true
+    // });
 
 
     if (setups["all"] && !isCategoryTopicList) {

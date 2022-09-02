@@ -64,10 +64,19 @@ createWidget("details-sidebar", {
       "slug"
     );
 
+    let prevURL = "";
+
     const observer = new MutationObserver((mutations) => {
+      if (location.href !== prevURL) {
+        prevURL = location.href;
+
+        console.log('test');
+        console.log(this, 'this');
+      }
       mutations.forEach((mutation) => {
         if (mutation.type === "childList") {
           const rt = getOwner(this).lookup("router:main");
+          console.log(rt);
           const currentRT = rt.currentRoute.parent.params;
           const activeItem = document.querySelector("li a.active");
           if (activeItem) {
