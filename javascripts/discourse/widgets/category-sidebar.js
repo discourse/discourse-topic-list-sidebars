@@ -18,8 +18,8 @@ function parseSetups(raw) {
   return parsed;
 }
 
-function createSidebar(taxonomy) {
-  const setup = setups[taxonomy];
+function createSidebar(taxonomy, isCategory) {
+  const setup = isCategory ? setupsByCategoryId[taxonomy] : setups[taxonomy];
   const post = [this.getPost(setup["post"])];
 
   document
@@ -35,8 +35,27 @@ function createSidebar(taxonomy) {
   );
 }
 
+function checkActiveItem(detailId) {
+  const activeItem = document.querySelector("li a.active");
+
+    if (activeItem) {
+      activeItem.classList.remove("active");
+      if (activeItem.closest("details")) {
+        activeItem.closest("details").open = false;
+      }
+    }
+    const currentSidebarItem = document.querySelector("li a[href*='" + detailId + "']:not(.active)");
+    if (currentSidebarItem) {
+      currentSidebarItem.classList.add("active");
+      if (currentSidebarItem.closest("details")) {
+        currentSidebarItem.closest("details").setAttribute("open", "");
+      }
+    }
+}
+
 const postCache = {};
 const setups = parseSetups(settings.setup);
+const setupsByCategoryId = parseSetups(settings.setup_by_category_id);
 
 createWidget("category-sidebar", {
   tagName: "div.sticky-sidebar",
@@ -63,11 +82,29 @@ createWidget("category-sidebar", {
     let previousURL = '';
 
     new MutationObserver(() => {
-      if (location.href !== previousURL) {
-        const rts = getOwner(this).lookup("router:main");
+      if (location.href !== previousURL && (/\/t\//.test(location.href))) {
         previousURL = location.href;
+        const detailsRouter = getOwner(this).lookup("router:main");
+        const detailsCurrentRouter = detailsRouter.currentRoute.parent.params;
+        const detailsCurrentCategoryId = detailsRouter.currentRoute?.parent?.attributes?.category_id || 0;
+        const isDetailTopic = currentRouteParams.hasOwnProperty(
+          "slug"
+        );
 
-        console.log(rts);
+        if (detailsCurrentRouter) {
+          checkActiveItem(detailsCurrentRouter.id);
+        }
+
+        if (setups["all"] && !isDetailTopic) {
+          return createSidebar.call(this, "all");
+        } else if (isDetailTopic) {
+          const detailsSlug = detailsCurrentRouter.slug;
+          if (detailsSlug && setups[detailsSlug]) {
+            return createSidebar.call(this, detailsSlug, false);
+          } else if (detailsCurrentCategoryId && setupsByCategoryId[detailsCurrentCategoryId]) {
+            return createSidebar.call(this, detailsCurrentCategoryId, true);
+          }
+        }
       }
     }).observe(document.querySelector("body"), {
       childList: true,
