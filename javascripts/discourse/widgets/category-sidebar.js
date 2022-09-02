@@ -100,7 +100,7 @@ createWidget("category-sidebar", {
         const detailsCurrentRouter = detailsRouter.currentRoute.parent.params;
         const detailsCurrentCategoryId = detailsRouter.currentRoute?.parent?.attributes?.category_id || 0;
         console.log(detailsCurrentCategoryId, 'id');
-        const isDetailTopic = detailsCurrentRouter.hasOwnProperty(
+        const isDetailTopic = currentRouteParams.hasOwnProperty(
           "slug"
         );
 
@@ -108,7 +108,7 @@ createWidget("category-sidebar", {
           checkActiveItem(detailsCurrentRouter.id);
         }
 
-        if (setupsDetails["all"] && !isDetailTopic) {
+        if (setups["all"] && !isDetailTopic) {
           return createcreateDetailsSidebarSidebar.call(this, "all", false);
         } else if (isDetailTopic) {
           console.log('details');
