@@ -22,10 +22,15 @@ function parseSetups(raw) {
 function createSidebar(taxonomy, isCategory) {
   const setup = isCategory ? setupByCategory[taxonomy] : setups[taxonomy];
   const post = [this.getPost(setup["post"])];
+  this.state.posts = post;
+
+  if (!this.state.posts || this.state.posts.length === 0) {
+    return;
+  }
 
   return h(
     "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
-    post
+    this.state.posts
   );
 }
 
@@ -36,6 +41,10 @@ const setupByCategory = parseSetups(settings.setup_by_category_id);
 createWidget("details-sidebar", {
   tagName: "div.sticky-sidebar",
   buildKey: () => "details-sidebar",
+
+  defaultState() {
+    return { posts: null };
+  },
 
   didRenderWidget() {
     schedule("afterRender", this, () => {
@@ -51,14 +60,14 @@ createWidget("details-sidebar", {
           );
 
           if (setups["all"] && !isDetailTopic) {
-            return createSidebar.call(this, "all");
+            this.state.posts = [this.getPost(setups["all"]["post"])];
           } else if (isDetailTopic) {
             const detailsSlug = rtParams.slug;
 
             if (detailsSlug && setups[detailsSlug]) {
-              return createSidebar.call(this, detailsSlug, false);
+              this.state.posts = [this.getPost(setups[detailsSlug]["post"])];
             } else if (rtCategory && setupByCategory[rtCategory]) {
-              return createSidebar.call(this, rtCategory, true);
+              this.state.posts = [this.getPost(setupByCategory[rtCategory]["post"])];
             }
           }
           this.scheduleRerender();
@@ -148,58 +157,5 @@ createWidget("details-sidebar", {
       });
     }
     return postCache[id];
-  },
-});
-
-reopenWidget("details-sidebar", {
-  html() {
-    const router = getOwner(this).lookup("router:main");
-    const currentRouteParams = router.currentRoute.parent.params;
-    const currentCategoryId = router.currentRoute?.parent?.attributes?.category_id || 0;
-    const isDetailTopic = currentRouteParams.hasOwnProperty(
-      "slug"
-    );
-
-    let prevURL = "";
-
-    const observer = new MutationObserver(() => {
-      if (location.href !== prevURL && (/\/t\//.test(location.href))) {
-        prevURL = location.href;
-        const rt = getOwner(this).lookup("router:main");
-        const currentRT = rt.currentRoute.parent.params;
-        const activeItem = document.querySelector("li a.active");
-
-        if (activeItem) {
-          activeItem.classList.remove("active");
-          if (activeItem.closest("details")) {
-            activeItem.closest("details").open = false;
-          }
-        }
-        const currentSidebarItem = document.querySelector(
-          "li a[href*='" + currentRT.id + "']:not(.active)"
-        );
-        if (currentSidebarItem) {
-          currentSidebarItem.classList.add("active");
-          if (currentSidebarItem.closest("details")) {
-            currentSidebarItem.closest("details").setAttribute("open", "");
-          }
-        }
-      }
-    });
-
-    const topicBody = document.getElementById("main-outlet");
-    observer.observe(topicBody, { childList: true, subtree: true });
-
-    if (setups["all"] && !isDetailTopic) {
-      return createSidebar.call(this, "all");
-    } else if (isDetailTopic) {
-      const detailsSlug = currentRouteParams.slug
-
-      if (detailsSlug && setups[detailsSlug]) {
-        return createSidebar.call(this, detailsSlug, false);
-      } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
-        return createSidebar.call(this, currentCategoryId, true);
-      }
-    }
   },
 });
