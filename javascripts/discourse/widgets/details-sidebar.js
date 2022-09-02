@@ -1,3 +1,4 @@
+import { schedule } from "@ember/runloop";
 import { getOwner } from "discourse-common/lib/get-owner";
 import { ajax } from "discourse/lib/ajax";
 import PostCooked from "discourse/widgets/post-cooked";
@@ -34,6 +35,12 @@ const setupByCategory = parseSetups(settings.setup_by_category_id);
 
 createWidget("details-sidebar", {
   tagName: "div.sticky-sidebar",
+
+  didRenderWidget() {
+    schedule("afterRender", this, () => {
+        console.log('rendered');
+    });
+  },
 
   init() {
     let sidebarWrapper =
