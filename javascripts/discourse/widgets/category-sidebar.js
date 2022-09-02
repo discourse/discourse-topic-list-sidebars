@@ -39,7 +39,7 @@ function createDetailsSidebar(taxonomy, isCategory) {
   const setup = isCategory ? setupsByCategoryId[taxonomy] : setupsDetails[taxonomy];
   const post = [this.getPost(setup["post"])];
 
-  console.log('posts details', post);
+  this.scheduleRerender();
 
   return h(
     "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
@@ -84,6 +84,10 @@ createWidget("category-sidebar", {
       sidebarWrapper.style.maxHeight = sidebarMaxHeight;
       sidebarWrapper.style.top = settings.stick_on_scroll ? sidebarTop : undefined;
     }
+
+    document
+      .querySelector("body")
+      .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
   },
 
   html() {
