@@ -2,7 +2,7 @@ import { schedule } from "@ember/runloop";
 import { getOwner } from "discourse-common/lib/get-owner";
 import { ajax } from "discourse/lib/ajax";
 import PostCooked from "discourse/widgets/post-cooked";
-import { createWidget } from "discourse/widgets/widget";
+import { createWidget, reopenWidget } from "discourse/widgets/widget";
 import { h } from "virtual-dom";
 
 function defaultSettings() {
@@ -35,6 +35,7 @@ const setupByCategory = parseSetups(settings.setup_by_category_id);
 
 createWidget("details-sidebar", {
   tagName: "div.sticky-sidebar",
+  buildKey: () => "details-sidebar",
 
   didRenderWidget() {
     schedule("afterRender", this, () => {
@@ -147,5 +148,58 @@ createWidget("details-sidebar", {
       });
     }
     return postCache[id];
+  },
+});
+
+reopenWidget("details-sidebar", {
+  html() {
+    const router = getOwner(this).lookup("router:main");
+    const currentRouteParams = router.currentRoute.parent.params;
+    const currentCategoryId = router.currentRoute?.parent?.attributes?.category_id || 0;
+    const isDetailTopic = currentRouteParams.hasOwnProperty(
+      "slug"
+    );
+
+    let prevURL = "";
+
+    const observer = new MutationObserver(() => {
+      if (location.href !== prevURL && (/\/t\//.test(location.href))) {
+        prevURL = location.href;
+        const rt = getOwner(this).lookup("router:main");
+        const currentRT = rt.currentRoute.parent.params;
+        const activeItem = document.querySelector("li a.active");
+
+        if (activeItem) {
+          activeItem.classList.remove("active");
+          if (activeItem.closest("details")) {
+            activeItem.closest("details").open = false;
+          }
+        }
+        const currentSidebarItem = document.querySelector(
+          "li a[href*='" + currentRT.id + "']:not(.active)"
+        );
+        if (currentSidebarItem) {
+          currentSidebarItem.classList.add("active");
+          if (currentSidebarItem.closest("details")) {
+            currentSidebarItem.closest("details").setAttribute("open", "");
+          }
+        }
+      }
+    });
+
+    const topicBody = document.getElementById("main-outlet");
+    observer.observe(topicBody, { childList: true, subtree: true });
+
+    if (setups["all"] && !isDetailTopic) {
+      return createSidebar.call(this, "all");
+    } else if (isDetailTopic) {
+      const detailsSlug = currentRouteParams.slug
+
+      if (detailsSlug && setups[detailsSlug]) {
+        return createSidebar.call(this, detailsSlug, false);
+      } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
+        return createSidebar.call(this, currentCategoryId, true);
+      }
+    }
   },
 });
