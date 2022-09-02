@@ -39,6 +39,8 @@ function createDetailsSidebar(taxonomy, isCategory) {
   const setup = isCategory ? setupsByCategoryId[taxonomy] : setupsDetails[taxonomy];
   const post = [this.getPost(setup["post"])];
 
+  console.log('posts details', post);
+
   return h(
     "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
     post
@@ -96,10 +98,8 @@ createWidget("category-sidebar", {
       if (location.href !== previousURL && (/\/t\//.test(location.href))) {
         previousURL = location.href;
         const detailsRouter = getOwner(this).lookup("router:main");
-        console.log(detailsRouter);
         const detailsCurrentRouter = detailsRouter.currentRoute.parent.params;
         const detailsCurrentCategoryId = detailsRouter.currentRoute?.parent?.attributes?.category_id || 0;
-        console.log(detailsCurrentCategoryId, 'id');
         const isDetailTopic = detailsCurrentRouter.hasOwnProperty(
           "slug"
         );
@@ -111,12 +111,10 @@ createWidget("category-sidebar", {
         if (setupsDetails["all"] && !isDetailTopic) {
           return createcreateDetailsSidebarSidebar.call(this, "all", false);
         } else if (isDetailTopic) {
-          console.log('details');
           const detailsSlug = detailsCurrentRouter.slug;
           if (detailsSlug && setupsDetails[detailsSlug]) {
             return createDetailsSidebar.call(this, detailsSlug, false);
           } else if (detailsCurrentCategoryId && setupsByCategoryId[detailsCurrentCategoryId]) {
-            console.log('category');
             return createDetailsSidebar.call(this, detailsCurrentCategoryId, true);
           }
         }
