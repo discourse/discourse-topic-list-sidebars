@@ -64,10 +64,10 @@ createWidget("category-sidebar", {
 
     new MutationObserver(() => {
       if (location.href !== previousURL) {
-        const router = getOwner(this).lookup("router:main");
+        const rts = getOwner(this).lookup("router:main");
         previousURL = location.href;
 
-        console.log(router);
+        console.log(rts);
       }
     }).observe(document.querySelector("body"), {
       childList: true,
