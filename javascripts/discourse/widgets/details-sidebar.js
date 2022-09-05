@@ -23,14 +23,16 @@ function createSidebar(taxonomy, isCategory) {
   const post = [this.getPost(setup["post"])];
   this.state.posts = post;
 
-  if (!this.state.posts || this.state.posts.length === 0) {
+  if (!this.state.posts || !this.state.posts[0]?.attrs?.cooked) {
     return;
   }
 
+
+  this.scheduleRerender();
   console.log(this.state.posts[0], 'posts');
 
   return new RawHtml({
-    html: `<div class="category-sidebar-contents category-sidebar-${taxonomy}">${this.state.posts[0].attrs.cooked}</div>`
+    html: `<div class="category-sidebar-contents category-sidebar-${taxonomy} cooked">${this.state.posts[0].attrs.cooked}</div>`
   });
 }
 
