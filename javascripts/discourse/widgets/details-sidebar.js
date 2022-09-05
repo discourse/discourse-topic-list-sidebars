@@ -27,8 +27,6 @@ function createSidebar(taxonomy, isCategory) {
     return;
   }
 
-
-  this.scheduleRerender();
   console.log(this.state.posts[0], 'posts');
 
   return new RawHtml({
