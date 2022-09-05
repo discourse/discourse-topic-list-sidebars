@@ -125,6 +125,14 @@ createWidget("details-sidebar", {
             console.log('topicInsideParent');
             return createSidebar.call(this, category, true);
           }
+
+          // Remove sidebar if not returned
+          document
+            .querySelector("body")
+            .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
+          document
+            .querySelector("#main-outlet > .container+div")
+            .classList.remove("with-sidebar", settings.sidebar_side);
         });
       }
     }
@@ -145,10 +153,8 @@ createWidget("details-sidebar", {
   isPostExistFromParent(id, postId) {
     if (id && postId) {
       ajax(`/c/${id}.json`).then((response) => {
-        console.log(response?.topic_list?.topics, 'response');
         topicInsideParent[id] = response?.topic_list?.topics.some((topic) => topic.id === postId);
-        console.log(topicInsideParent[id], 'topicInsideParent');
-        this.scheduleRerender();
+        console.log('topicInsideParent', topicInsideParent);
       });
     }
   }
