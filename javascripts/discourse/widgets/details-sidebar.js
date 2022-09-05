@@ -117,16 +117,12 @@ createWidget("details-sidebar", {
         return createSidebar.call(this, currentCategoryId, true);
       } else if (settings.inherit_parent_sidebar) {
         Object.keys(setupByCategory).map((category) => {
-          this.isPostExistFromParent(category, currentRouteParams.id);
+          if (currentCategoryId === category) {
+            console.log('same category');
 
-          console.log(topicInsideParent);
-
-          if (topicInsideParent[category]) {
-            console.log('topicInsideParent');
             return createSidebar.call(this, category, true);
           }
 
-          // Remove sidebar if not returned
           document
             .querySelector("body")
             .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
