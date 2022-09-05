@@ -27,8 +27,6 @@ function createSidebar(taxonomy, isCategory) {
     return;
   }
 
-  console.log('post', post);
-
   return new RawHtml({
     html: `<div class="category-sidebar-contents category-sidebar-${taxonomy} cooked">${this.state.posts[0].attrs.cooked}</div>`
   });
@@ -82,7 +80,6 @@ createWidget("details-sidebar", {
       if (location.href !== prevURL && (/\/t\//.test(location.href))) {
         prevURL = location.href;
         this.scheduleRerender();
-        console.log('test');
         const rt = getOwner(this).lookup("router:main");
         const currentRT = rt.currentRoute.parent.params;
         const activeItem = document.querySelector("li a.active");
@@ -119,11 +116,7 @@ createWidget("details-sidebar", {
         return createSidebar.call(this, currentCategoryId, true);
       } else if (settings.inherit_parent_sidebar) {
         Object.keys(setupByCategory).map((category) => {
-          console.log('category', category);
-          console.log('currentCategoryId', currentCategoryId);
           if (category === currentCategoryId.toString()) {
-            console.log('same category');
-
             return createSidebar.call(this, category, true);
           }
 
@@ -154,7 +147,6 @@ createWidget("details-sidebar", {
     if (id && postId) {
       ajax(`/c/${id}.json`).then((response) => {
         topicInsideParent[id] = response?.topic_list?.topics.some((topic) => topic.id === postId);
-        console.log('topicInsideParent', topicInsideParent);
       });
     }
   }
