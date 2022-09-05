@@ -24,10 +24,11 @@ function createSidebar(taxonomy, isCategory) {
   this.state.posts = post;
 
   if (!this.state.posts || !this.state.posts[0]?.attrs?.cooked) {
+    this.scheduleRerender();
     return;
   }
 
-  console.log(this.state.posts[0], 'posts');
+  console.log('post', post);
 
   return new RawHtml({
     html: `<div class="category-sidebar-contents category-sidebar-${taxonomy} cooked">${this.state.posts[0].attrs.cooked}</div>`
@@ -35,7 +36,7 @@ function createSidebar(taxonomy, isCategory) {
 }
 
 const postCache = {};
-let topicInsideParent = false;
+const topicInsideParent = {};
 const setups = parseSetups(settings.setupDetails);
 const setupByCategory = parseSetups(settings.setup_by_category_id);
 
@@ -119,7 +120,8 @@ createWidget("details-sidebar", {
         Object.keys(setupByCategory).map((category) => {
           this.isPostExistFromParent(category, currentRouteParams.id);
 
-          if (topicInsideParent) {
+          if (topicInsideParent[id]) {
+            console.log('topicInsideParent');
             return createSidebar.call(this, category, true);
           }
         });
@@ -143,7 +145,7 @@ createWidget("details-sidebar", {
     if (id && postId) {
       ajax(`/c/${id}.json`).then((response) => {
         console.log(response?.topic_list?.topics, 'response');
-        topicInsideParent = response?.topic_list?.topics.some((topic) => topic.id === postId);
+        topicInsideParent[id] = response?.topic_list?.topics.some((topic) => topic.id === postId);
       });
     }
   }
