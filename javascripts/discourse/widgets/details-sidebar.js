@@ -27,6 +27,8 @@ function createSidebar(taxonomy, isCategory) {
     return;
   }
 
+  console.log(this.state.posts, 'posts');
+
   return new RawHtml({
     html: `<div class="category-sidebar-contents category-sidebar-${taxonomy}">${this.state.posts}</div>`
   });
@@ -114,7 +116,7 @@ createWidget("details-sidebar", {
         return createSidebar.call(this, currentCategoryId, true);
       } else if (settings.inherit_parent_sidebar) {
         console.log(setupByCategory, 'category');
-        getPostFromParent(178);
+        this.getPostFromParent(178);
       }
     }
   },
