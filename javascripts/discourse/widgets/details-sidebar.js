@@ -147,6 +147,8 @@ createWidget("details-sidebar", {
       ajax(`/c/${id}.json`).then((response) => {
         console.log(response?.topic_list?.topics, 'response');
         topicInsideParent[id] = response?.topic_list?.topics.some((topic) => topic.id === postId);
+        console.log(topicInsideParent[id], 'topicInsideParent');
+        this.scheduleRerender();
       });
     }
   }
