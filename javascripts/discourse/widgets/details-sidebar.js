@@ -24,7 +24,6 @@ function createSidebar(taxonomy, isCategory) {
   this.state.posts = post;
 
   if (!this.state.posts || !this.state.posts[0]?.attrs?.cooked) {
-    this.scheduleRerender();
     return;
   }
 
