@@ -116,10 +116,12 @@ createWidget("details-sidebar", {
       } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
         return createSidebar.call(this, currentCategoryId, true);
       } else if (settings.inherit_parent_sidebar) {
+        const rout = getOwner(this).lookup("router:main");
+        const catId = rout.currentRoute?.parent?.attributes?.category_id || 0;
         Object.keys(setupByCategory).map((category) => {
           console.log('category', category);
-          console.log('currentCategoryId', currentCategoryId);
-          if (category === currentCategoryId.toString()) {
+          console.log('currentCategoryId', catId);
+          if (category === catId.toString()) {
             console.log('same category');
 
             return createSidebar.call(this, category, true);
