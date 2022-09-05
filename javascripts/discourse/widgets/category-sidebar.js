@@ -124,6 +124,9 @@ createWidget("category-sidebar", {
     }
     // Remove classes if no sidebar returned
     document
+      .querySelector("body")
+      .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
+    document
       .querySelector(".topic-list")
       .classList.remove("with-sidebar", settings.sidebar_side);
   },
