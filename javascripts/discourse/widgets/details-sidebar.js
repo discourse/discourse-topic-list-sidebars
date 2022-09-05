@@ -116,9 +116,13 @@ createWidget("details-sidebar", {
       } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
         return createSidebar.call(this, currentCategoryId, true);
       } else if (settings.inherit_parent_sidebar) {
-        console.log(Object.keys(setupByCategory), 'category');
+        Object.keys(setupByCategory).map((category) => {
+          this.isPostExistFromParent(category, currentRouteParams.id);
 
-        this.isPostExistFromParent(178, currentRouteParams.id);
+          if (topicInsideParent) {
+            return createSidebar.call(this, category, true);
+          }
+        });
       }
     }
   },
