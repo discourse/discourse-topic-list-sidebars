@@ -27,14 +27,15 @@ function createSidebar(taxonomy, isCategory) {
     return;
   }
 
-  console.log(this.state.posts, 'posts');
+  console.log(this.state.posts[0], 'posts');
 
   return new RawHtml({
-    html: `<div class="category-sidebar-contents category-sidebar-${taxonomy}">${this.state.posts}</div>`
+    html: `<div class="category-sidebar-contents category-sidebar-${taxonomy}">${this.state.posts[0].attrs.cooked}</div>`
   });
 }
 
 const postCache = {};
+let topicInsideParent = false;
 const setups = parseSetups(settings.setupDetails);
 const setupByCategory = parseSetups(settings.setup_by_category_id);
 
@@ -115,8 +116,9 @@ createWidget("details-sidebar", {
       } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
         return createSidebar.call(this, currentCategoryId, true);
       } else if (settings.inherit_parent_sidebar) {
-        console.log(setupByCategory, 'category');
-        this.getPostFromParent(178);
+        console.log(Object.keys(setupByCategory), 'category');
+
+        this.isPostExistFromParent(178, currentRouteParams.id);
       }
     }
   },
@@ -133,10 +135,11 @@ createWidget("details-sidebar", {
     return postCache[id];
   },
 
-  getPostFromParent(id) {
-    if (!postCache[id]) {
+  isPostExistFromParent(id, postId) {
+    if (id && postId) {
       ajax(`/c/${id}.json`).then((response) => {
-        console.log(response, 'response');
+        console.log(response?.topic_list?.topics, 'response');
+        topicInsideParent = response?.topic_list?.topics.some((topic) => topic.id === postId);
       });
     }
   }
