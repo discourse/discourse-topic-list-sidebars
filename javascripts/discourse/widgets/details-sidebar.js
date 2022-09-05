@@ -119,7 +119,9 @@ createWidget("details-sidebar", {
         Object.keys(setupByCategory).map((category) => {
           this.isPostExistFromParent(category, currentRouteParams.id);
 
-          if (topicInsideParent[id]) {
+          console.log(topicInsideParent);
+
+          if (topicInsideParent[category]) {
             console.log('topicInsideParent');
             return createSidebar.call(this, category, true);
           }
