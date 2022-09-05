@@ -81,6 +81,8 @@ createWidget("details-sidebar", {
     const observer = new MutationObserver(() => {
       if (location.href !== prevURL && (/\/t\//.test(location.href))) {
         prevURL = location.href;
+        this.scheduleRerender();
+        console.log('test');
         const rt = getOwner(this).lookup("router:main");
         const currentRT = rt.currentRoute.parent.params;
         const activeItem = document.querySelector("li a.active");
@@ -116,12 +118,10 @@ createWidget("details-sidebar", {
       } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
         return createSidebar.call(this, currentCategoryId, true);
       } else if (settings.inherit_parent_sidebar) {
-        const rout = getOwner(this).lookup("router:main");
-        const catId = rout.currentRoute?.parent?.attributes?.category_id || 0;
         Object.keys(setupByCategory).map((category) => {
           console.log('category', category);
-          console.log('currentCategoryId', catId);
-          if (category === catId.toString()) {
+          console.log('currentCategoryId', currentCategoryId);
+          if (category === currentCategoryId.toString()) {
             console.log('same category');
 
             return createSidebar.call(this, category, true);
