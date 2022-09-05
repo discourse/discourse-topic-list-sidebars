@@ -1,9 +1,8 @@
-import { schedule } from "@ember/runloop";
 import { getOwner } from "discourse-common/lib/get-owner";
 import { ajax } from "discourse/lib/ajax";
 import PostCooked from "discourse/widgets/post-cooked";
-import { createWidget, reopenWidget } from "discourse/widgets/widget";
-import { h } from "virtual-dom";
+import RawHtml from "discourse/widgets/raw-html";
+import { createWidget } from "discourse/widgets/widget";
 
 function defaultSettings() {
   return {};
@@ -28,10 +27,9 @@ function createSidebar(taxonomy, isCategory) {
     return;
   }
 
-  return h(
-    "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
-    this.state.posts
-  );
+  return new RawHtml({
+    html: `<div class="category-sidebar-contents category-sidebar-${taxonomy}">${this.state.posts}</div>`
+  });
 }
 
 const postCache = {};
@@ -44,35 +42,6 @@ createWidget("details-sidebar", {
 
   defaultState() {
     return { posts: null };
-  },
-
-  didRenderWidget() {
-    schedule("afterRender", this, () => {
-        const rt = getOwner(this).lookup("router:main");
-
-        if (!location.href.includes(rt.currentURL)) {
-          console.log('rt');
-
-          const rtParams = rt.currentRoute.parent.params;
-          const rtCategory = rt.currentRoute?.parent?.attributes?.category_id || 0;
-          const isDetailTopic = rtParams.hasOwnProperty(
-            "slug"
-          );
-
-          if (setups["all"] && !isDetailTopic) {
-            this.state.posts = [this.getPost(setups["all"]["post"])];
-          } else if (isDetailTopic) {
-            const detailsSlug = rtParams.slug;
-
-            if (detailsSlug && setups[detailsSlug]) {
-              this.state.posts = [this.getPost(setups[detailsSlug]["post"])];
-            } else if (rtCategory && setupByCategory[rtCategory]) {
-              this.state.posts = [this.getPost(setupByCategory[rtCategory]["post"])];
-            }
-          }
-          this.scheduleRerender();
-        }
-    });
   },
 
   init() {
@@ -143,6 +112,9 @@ createWidget("details-sidebar", {
         return createSidebar.call(this, detailsSlug, false);
       } else if (currentCategoryId && setupByCategory[currentCategoryId]) {
         return createSidebar.call(this, currentCategoryId, true);
+      } else if (settings.inherit_parent_sidebar) {
+        console.log(setupByCategory, 'category');
+        getPostFromParent(178);
       }
     }
   },
@@ -158,4 +130,12 @@ createWidget("details-sidebar", {
     }
     return postCache[id];
   },
+
+  getPostFromParent(id) {
+    if (!postCache[id]) {
+      ajax(`/c/${id}.json`).then((response) => {
+        console.log(response, 'response');
+      });
+    }
+  }
 });
