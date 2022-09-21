@@ -105,6 +105,7 @@ createWidget("category-sidebar", {
   getPost(id) {
     if (!postCache[id]) {
       ajax(`/t/${id}.json`).then((response) => {
+        this.model = response.post_stream.posts[0];
         postCache[id] = new PostCooked(
           {
             cooked: response.post_stream.posts[0].cooked,
