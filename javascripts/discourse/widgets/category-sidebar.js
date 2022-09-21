@@ -3,6 +3,7 @@ import { createWidget } from "discourse/widgets/widget";
 import { getOwner } from "discourse-common/lib/get-owner";
 import { h } from "virtual-dom";
 import PostCooked from "discourse/widgets/post-cooked";
+import DecoratorHelper from "discourse/widgets/decorator-helper";
 
 function defaultSettings() {
   return {};
@@ -104,9 +105,13 @@ createWidget("category-sidebar", {
   getPost(id) {
     if (!postCache[id]) {
       ajax(`/t/${id}.json`).then((response) => {
-        postCache[id] = new PostCooked({
-          cooked: response.post_stream.posts[0].cooked,
-        });
+        postCache[id] = new PostCooked(
+          {
+            cooked: response.post_stream.posts[0].cooked,
+          },
+          new DecoratorHelper(this),
+          this.currentUser
+        );
         this.scheduleRerender();
       });
     }
