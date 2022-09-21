@@ -1,11 +1,6 @@
-import {
-  acceptance,
-  exists,
-  visible,
-} from "discourse/tests/helpers/qunit-helpers";
-import { click, visit } from "@ember/test-helpers";
+import { acceptance, visible } from "discourse/tests/helpers/qunit-helpers";
+import { visit } from "@ember/test-helpers";
 import { test } from "qunit";
-import selectKit from "discourse/tests/helpers/select-kit-helper";
 
 acceptance("Category Sidebars", function (needs) {
   needs.hooks.beforeEach(() => {
