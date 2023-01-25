@@ -2,11 +2,11 @@
 
 This theme component takes a topic and applies it as a sidebar for a category's topic list. These sidebars are only visible when the browser is 767px or wider (most tablets and monitors). 
 
+![image](https://user-images.githubusercontent.com/5862206/214492836-6dcb5dde-d0cf-4ee8-9811-2cf135b95c7b.png)
+
 :eye: [Preview it on theme creator](https://theme-creator.discourse.org/theme/awesomerobot/discourse-category-sidebars )
 
-![34%20PM|690x423](https://meta-s3-cdn.freetls.fastly.net/optimized/3X/0/6/06232990c15daef67651d20fb17e9be04686e5be_2_1380x846.png) 
-
- :thinking: https://meta.discourse.org/t/how-do-i-install-a-theme-or-theme-component/63682
+:thinking: https://meta.discourse.org/t/how-do-i-install-a-theme-or-theme-component/63682
 
 
 ## What can I do with this theme component? 
@@ -24,7 +24,7 @@ This theme component takes a topic and applies it as a sidebar for a category's 
 
 Simply insert the category slug (from the category url, e.g. [example.com/c/](#)**staff**) and the id of the topic (e.g. [example.com/t/example-topic/](#)**57**)
 
-![11%20PM|690x125](https://meta-s3-cdn.freetls.fastly.net/optimized/3X/f/7/f7266e11a5c930ca1df907f33e8f4c54c072c8ab_2_1380x250.png) 
+![image](https://user-images.githubusercontent.com/5862206/214492886-e5c35808-6c82-4ade-8eed-062c70851d7f.png)
 
 I recommend creating sidebar topics in their respective categories, closing the topic so there are no replies, and unlisting it (so it doesn't appear in the topic list). 
 
