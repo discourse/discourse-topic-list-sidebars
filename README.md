@@ -2,12 +2,11 @@
 
 This theme component takes a topic and applies it as a sidebar for a category's topic list. These sidebars are only visible when the browser is 767px or wider (most tablets and monitors). 
 
+![image](https://user-images.githubusercontent.com/5862206/214491941-a6a46a54-aa69-4e03-9c1a-c31031a94fae.png)
+
 :eye: [Preview it on theme creator](https://theme-creator.discourse.org/theme/awesomerobot/discourse-category-sidebars )
 
-![34%20PM|690x423](https://meta-s3-cdn.freetls.fastly.net/optimized/3X/0/6/06232990c15daef67651d20fb17e9be04686e5be_2_1380x846.png) 
-
- :thinking: https://meta.discourse.org/t/how-do-i-install-a-theme-or-theme-component/63682
-
+:thinking: https://meta.discourse.org/t/how-do-i-install-a-theme-or-theme-component/63682
 
 ## What can I do with this theme component? 
 
