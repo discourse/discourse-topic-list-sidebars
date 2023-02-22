@@ -1,17 +1,10 @@
-.custom-sidebar {
-  .contents > .topic-list {
-    // Don't show the sidebar
-    > div {
-      display: none;
+.sidebar-wrapper {
+    overflow-y: unset;
+  }
+  .sidebar-sections {
+    .sidebar-wrapper & {
+        padding: 30px;
     }
-  }
-  .regular.with-sidebar.left .details-sidebar {
-    display: none;
-  }
-}
-
-.custom-sidebar {
-  .category-sidebar {
     .cooked {
       ul {
         margin-left: 0;
@@ -56,7 +49,7 @@
           align-items: center;
           gap: 8px;
           padding-block: 3px;
-          font-size: var(--base-font-size);
+          font-size: var(--base-font-size-smaller);
           &::before {
             content: none;
           }
@@ -104,6 +97,7 @@
       }
       > details {
         padding-left: 0;
+        margin-bottom: 10px;
         > summary {
           font-weight: 500;
         }
@@ -140,8 +134,12 @@
           a.active::after {
             left: -8px;
           }
+          li > ul {
+            a.active::after {
+              left: -16px;
+            }
+          }
         }
       }
     }
   }
-}

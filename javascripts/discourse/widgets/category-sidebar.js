@@ -1,6 +1,7 @@
 import { getOwner } from "discourse-common/lib/get-owner";
 import { ajax } from "discourse/lib/ajax";
 import PostCooked from "discourse/widgets/post-cooked";
+import DecoratorHelper from "discourse/widgets/decorator-helper";
 import { createWidget } from "discourse/widgets/widget";
 import { h } from "virtual-dom";
 
@@ -134,9 +135,15 @@ createWidget("category-sidebar", {
   getPost(id) {
     if (!postCache[id]) {
       ajax(`/t/${id}.json`).then((response) => {
+        this.model = response.post_stream.posts[0];
+        this.model.topic = response;
+
         postCache[id] = new PostCooked({
           cooked: response.post_stream.posts[0].cooked,
-        });
+        },
+        new DecoratorHelper(this),
+        this.currentUser
+        );
         this.scheduleRerender();
       });
     }
