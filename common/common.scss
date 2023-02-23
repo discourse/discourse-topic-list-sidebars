@@ -1,3 +1,8 @@
+#main-outlet {
+  .category-sidebar {
+    display: none;
+  }
+}
 .sidebar-wrapper {
     overflow-y: unset;
   }
@@ -56,12 +61,11 @@
           &::after {
             content: "";
             border: solid rgba(var(--primary-rgb),.35);
-            border-width: 0 3px 3px 0;
-            width: 0.4rem;
-            height: 0.4rem;
+            border-width: 0 2px 2px 0;
+            width: 0.35rem;
+            height: 0.35rem;
             border-radius: 2.5px;
             transform: rotate(45deg);
-            margin-top: -5px;
           }
         }
         &[open] > summary {
@@ -71,7 +75,7 @@
           &::after {
             content: "";
             transform: rotate(225deg);
-            margin-top: 5px;
+            margin-top: 4px;
           }
         }
       }

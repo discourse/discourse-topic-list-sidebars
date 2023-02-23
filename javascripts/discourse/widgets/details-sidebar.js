@@ -86,24 +86,24 @@ createWidget("details-sidebar", {
         const currentRT = rt.currentRoute.parent.params;
         const activeItem = document.querySelector("li a.active:not(.sidebar-section-link)");
 
-        const sidebar = document.querySelector(".sidebar-sections");
-        const customSidebar = document.querySelector(".sidebar-sections .cooked");
+        // const sidebar = document.querySelector(".sidebar-sections");
+        // const customSidebar = document.querySelector(".sidebar-sections .cooked");
 
-        if (customSidebar && !this?.state?.posts) {
-          customSidebar.remove();
-        }
+        // if (customSidebar && !this?.state?.posts) {
+        //   customSidebar.remove();
+        // }
 
-        if (sidebar && !customSidebar && this.state?.posts && this.state.posts[0]?.attrs?.cooked) {
-          const wrapper = document.createElement("div");
+        // if (sidebar && !customSidebar && this.state?.posts && this.state.posts[0]?.attrs?.cooked) {
+        //   const wrapper = document.createElement("div");
 
-          wrapper.className = "cooked";
-          wrapper.innerHTML = this.state.posts[0].attrs.cooked;
+        //   wrapper.className = "cooked";
+        //   wrapper.innerHTML = this.state.posts[0].attrs.cooked;
 
-          sidebar.innerHTML += wrapper.outerHTML;
-        }
-        if (sidebar && customSidebar && this.state?.posts && this.state.posts[0]?.attrs?.cooked) {
-          customSidebar.innerHTML = this.state.posts[0].attrs.cooked;
-        }
+        //   sidebar.innerHTML += wrapper.outerHTML;
+        // }
+        // if (sidebar && customSidebar && this.state?.posts && this.state.posts[0]?.attrs?.cooked) {
+        //   customSidebar.innerHTML = this.state.posts[0].attrs.cooked;
+        // }
 
         if (activeItem) {
           activeItem.classList.remove("active");

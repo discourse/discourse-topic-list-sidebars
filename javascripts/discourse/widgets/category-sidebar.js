@@ -1,9 +1,9 @@
 import { getOwner } from "discourse-common/lib/get-owner";
 import { ajax } from "discourse/lib/ajax";
-import PostCooked from "discourse/widgets/post-cooked";
 import DecoratorHelper from "discourse/widgets/decorator-helper";
+import PostCooked from "discourse/widgets/post-cooked";
+import RawHtml from "discourse/widgets/raw-html";
 import { createWidget } from "discourse/widgets/widget";
-import { h } from "virtual-dom";
 
 function defaultSettings() {
   return {};
@@ -19,55 +19,22 @@ function parseSetups(raw) {
   return parsed;
 }
 
-function createSidebar(taxonomy, isCategory) {
+function createSidebar(taxonomy) {
   const setup = setups[taxonomy];
   const post = [this.getPost(setup["post"])];
+  this.state.posts = post;
 
-  document
-    .querySelector("body")
-    .classList.add("custom-sidebar", "sidebar-" + settings.sidebar_side);
-  document
-    .querySelector(".topic-list")
-    .classList.add("with-sidebar", settings.sidebar_side);
+  if (!this.state.posts || !this.state.posts[0]?.attrs?.cooked) {
+    return;
+  }
 
-  return h(
-    "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
-    post
-  );
-}
-
-function createDetailsSidebar(taxonomy, isCategory) {
-  const setup = isCategory ? setupsByCategoryId[taxonomy] : setupsDetails[taxonomy];
-  const post = [this.getPost(setup["post"])];
-
-  return h(
-    "div.category-sidebar-contents " + ".category-sidebar-" + taxonomy,
-    post
-  );
-}
-
-function checkActiveItem(detailId) {
-  const activeItem = document.querySelector("li a.active");
-
-    if (activeItem) {
-      activeItem.classList.remove("active");
-      if (activeItem.closest("details")) {
-        activeItem.closest("details").open = false;
-      }
-    }
-    const currentSidebarItem = document.querySelector("li a[href*='" + detailId + "']:not(.active)");
-    if (currentSidebarItem) {
-      currentSidebarItem.classList.add("active");
-      if (currentSidebarItem.closest("details")) {
-        currentSidebarItem.closest("details").setAttribute("open", "");
-      }
-    }
+  return new RawHtml({
+    html: `<div class="category-sidebar-contents category-sidebar-${taxonomy} cooked">${this.state.posts[0].attrs.cooked}</div>`
+  });
 }
 
 const postCache = {};
 const setups = parseSetups(settings.setup);
-const setupsDetails = parseSetups(settings.setupDetails);
-const setupsByCategoryId = parseSetups(settings.setup_by_category_id);
 
 createWidget("category-sidebar", {
   tagName: "div.sticky-sidebar",
