@@ -23,19 +23,23 @@
       }
       a {
         color: var(--primary);
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 2px;
+        }
         &:hover {
-          color: var(--tertiary);
+          &::after {
+            background: var(--tertiary);
+          }
         }
         &.active {
           font-weight: 600;
           &::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
             background: var(--tertiary);
-            width: 2px;
           }
         }
       }
@@ -110,7 +114,7 @@
         }
         > ul {
           li > ul {
-            a.active::after {
+            a.active::after, a:hover::after {
               left: -8px;
             }
           }
@@ -120,11 +124,11 @@
           position: relative;
           > details {
             padding-left: 8px;
-            a.active::after {
+            a.active::after, a:hover::after {
               left: -16px;
             }
             li > ul {
-              a.active::after {
+              a.active::after, a:hover::after {
                 left: -24px;
               }
             }
@@ -138,11 +142,11 @@
             width: 1px;
             background: #dee6ea;
           }
-          a.active::after {
+          a.active::after, a:hover::after {
             left: -8px;
           }
           li > ul {
-            a.active::after {
+            a.active::after, a:hover::after {
               left: -16px;
             }
           }
