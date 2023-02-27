@@ -23,6 +23,9 @@
       }
       a {
         color: var(--primary);
+        &:hover {
+          color: var(--tertiary);
+        }
         &.active {
           font-weight: 600;
           &::after {
