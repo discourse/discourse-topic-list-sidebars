@@ -4,6 +4,6 @@
   "repository": "https://github.com/discourse/discourse-category-sidebars",
   "author": "Discourse",
   "devDependencies": {
-    "eslint-config-discourse": "latest"
+    "eslint-config-discourse": "^3.5.0"
   }
 }

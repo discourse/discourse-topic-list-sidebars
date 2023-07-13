@@ -1,10 +1,8 @@
 {
   "name": "discourse-category-sidebars",
-  "license_url": "https://github.com/awesomerobot/discourse-category-sidebars/blob/master/LICENSE",
-  "about_url": "https://github.com/awesomerobot/discourse-category-sidebars/blob/master/README.md",
+  "license_url": "https://github.com/awesomerobot/discourse-category-sidebars/blob/main/LICENSE",
+  "about_url": "https://github.com/awesomerobot/discourse-category-sidebars/blob/main/README.md",
   "component": true,
-  "assets": {
-  },
-  "color_schemes": {
-  }
+  "assets": {},
+  "color_schemes": {}
 }
