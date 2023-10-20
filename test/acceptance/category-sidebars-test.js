@@ -15,7 +15,7 @@ acceptance("Category Sidebars", function (needs) {
     assert.strictEqual(
       cooked.innerText,
       "Any plans to support localization of UI elements, so that I (for example) could set up a completely German speaking forum?",
-      "cooked post text is correct"
+      "cooked post text is correct",
     );
   });
 });
