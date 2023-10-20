@@ -1,21 +1,43 @@
-import { acceptance, visible } from "discourse/tests/helpers/qunit-helpers";
-import { visit } from "@ember/test-helpers";
+import { visit, waitFor } from "@ember/test-helpers";
 import { test } from "qunit";
+import { acceptance } from "discourse/tests/helpers/qunit-helpers";
 
-acceptance("Category Sidebars", function (needs) {
-  needs.hooks.beforeEach(() => {
-    settings.setup = "feature, 280";
+acceptance("CategorySidebar - General", function () {
+  test("Sidebar appears based on matching setting", async function (assert) {
+    settings.setup = "bug, 280";
+
+    await visit("/c/bug");
+
+    assert.dom(".category-sidebar").exists("the sidebar should appear");
   });
 
-  test("Can see sidebar with cooked post", async function (assert) {
-    await visit("/c/feature");
-    assert.ok(visible(".category-sidebar"), "sidebar element is present");
-    assert.ok(visible(".category-sidebar .cooked"), "cooked post");
-    const cooked = document.querySelector(".category-sidebar .cooked");
-    assert.strictEqual(
-      cooked.innerText,
-      "Any plans to support localization of UI elements, so that I (for example) could set up a completely German speaking forum?",
-      "cooked post text is correct",
-    );
+  test("Sidebar appears based on all setting", async function (assert) {
+    settings.setup = "all, 280";
+
+    await visit("/latest");
+
+    assert.dom(".category-sidebar").exists("the sidebar should appear");
+  });
+
+  test("Sidebar does not appear when no matching setting", async function (assert) {
+    settings.setup = "foo, 280";
+
+    await visit("/c/bug");
+
+    assert
+      .dom(".category-sidebar")
+      .doesNotExist("the sidebar should not appear");
+  });
+
+  test("Sidebar content is displayed", async function (assert) {
+    settings.setup = "bug, 280";
+
+    await visit("/c/bug");
+
+    await waitFor(".cooked", {
+      timeout: 5000,
+    });
+
+    assert.dom(".cooked").hasText(/German/, "the sidebar should have content");
   });
 });
