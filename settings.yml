@@ -1,30 +1,16 @@
 setup:
   type: list
-  default: 'staff, 3'
-  description: |
-    Each line should be in the format of "<code>category-slug</code>, <code>ID</code>".<br/><br/>
-    <ul>
-    <li>The category slug is the category name from its url, for example /c/<b>site-feedback/3</b></li>
+  default: "staff, 3"
 
-    <li>The topic ID is the first number in its url, for example /t/welcome-to-discourse/<b>8</b>/3</li>
-
-    <li>If you'd like to set a sidebar for /latest, /top, /new, /unread, use <code>all</code> as the category slug</li>
-    </ul>
-    <p>For performance reasons it's recommended that you close  sidebar topics so there aren't any replies</p>
-
-sidebar_side: 
+sidebar_side:
   default: right
   type: enum
-  choices: 
+  choices:
     - left
     - right
 
 inherit_parent_sidebar:
   default: true
-  description: |
-    If checked subcategories will inherit their parent category's sidebar (unless the subcategory has its own sidebar assigned). <p>When unchecked subcategories will only display a sidebar if one is specified.</p>
 
-stick_on_scroll: 
+stick_on_scroll:
   default: true
-  description: |
-    When checked sidebar has a sticky position on scroll
