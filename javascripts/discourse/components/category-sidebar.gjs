@@ -22,6 +22,7 @@ export default class CategorySidebar extends Component {
     {{#if this.matchedSetting}}
       {{bodyClass "custom-sidebar"}}
       {{bodyClass (concat "sidebar-" settings.sidebar_side)}}
+      {{! template-lint-disable modifier-name-case }}
       <div
         class="category-sidebar"
         {{didInsert this.fetchPostContent}}
