@@ -15,14 +15,14 @@ export default class CategorySidebar extends Component {
   @service router;
   @service siteSettings;
   @service site;
-  @tracked sidebarContent = null;
+  @tracked sidebarContent;
   @tracked loading = true;
 
   <template>
+    {{! template-lint-disable modifier-name-case }}
     {{#if this.matchedSetting}}
       {{bodyClass "custom-sidebar"}}
       {{bodyClass (concat "sidebar-" settings.sidebar_side)}}
-      {{! template-lint-disable modifier-name-case }}
       <div
         class="category-sidebar"
         {{didInsert this.fetchPostContent}}
@@ -30,7 +30,8 @@ export default class CategorySidebar extends Component {
       >
         <div class="sticky-sidebar">
           <div
-            class="category-sidebar-contents category-sidebar-{{this.category.slug}}"
+            class="category-sidebar-contents"
+            data-category-sidebar={{this.category.slug}}
           >
             <div class="cooked">
               {{#unless this.loading}}
@@ -46,23 +47,25 @@ export default class CategorySidebar extends Component {
 
   get parsedSetting() {
     return settings.setup.split("|").reduce((result, setting) => {
-      const [category, value] = setting.split(",").map((part) => part.trim());
+      const [category, value] = setting.split(",").map((postID) => postID.trim());
       result[category] = { post: value };
       return result;
     }, {});
   }
 
   get isTopRoute() {
-    const targets = this.siteSettings.top_menu
-      .split("|")
+    const topMenu = this.siteSettings.top_menu;
+
+    if (!topMenu) { return false; };
+
+    const targets = topMenu.split("|")
       .map((opt) => `discovery.${opt}`);
     const filteredTargets = targets.filter(
       (item) => item !== "discovery.categories",
     );
 
     return (
-      filteredTargets.includes(this.router.currentRouteName) &&
-      this.site.desktopView
+      filteredTargets.includes(this.router.currentRouteName)
     );
   }
 
@@ -98,20 +101,23 @@ export default class CategorySidebar extends Component {
       ) {
         return this.parsedSetting[parentCategorySlug];
       }
-    } else {
-      return null;
-    }
+    } 
   }
 
-  @action
-  fetchPostContent() {
+   @action
+  async fetchPostContent() {
     this.loading = true;
 
-    if (this.matchedSetting) {
-      ajax(`/t/${this.matchedSetting.post}.json`).then((response) => {
+    try {
+      if (this.matchedSetting) {
+        const response = await ajax(`/t/${this.matchedSetting.post}.json`);
         this.sidebarContent = response.post_stream.posts[0].cooked;
-        this.loading = false;
-      });
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("Error fetching post for category sidebar:", error);
+    } finally {
+      this.loading = false;
     }
 
     return this.sidebarContent;
