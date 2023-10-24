@@ -19,7 +19,6 @@ export default class CategorySidebar extends Component {
   @tracked loading = true;
 
   <template>
-    {{! template-lint-disable modifier-name-case }}
     {{#if this.matchedSetting}}
       {{bodyClass "custom-sidebar"}}
       {{bodyClass (concat "sidebar-" settings.sidebar_side)}}
@@ -47,7 +46,9 @@ export default class CategorySidebar extends Component {
 
   get parsedSetting() {
     return settings.setup.split("|").reduce((result, setting) => {
-      const [category, value] = setting.split(",").map((postID) => postID.trim());
+      const [category, value] = setting
+        .split(",")
+        .map((postID) => postID.trim());
       result[category] = { post: value };
       return result;
     }, {});
@@ -56,17 +57,16 @@ export default class CategorySidebar extends Component {
   get isTopRoute() {
     const topMenu = this.siteSettings.top_menu;
 
-    if (!topMenu) { return false; };
+    if (!topMenu) {
+      return false;
+    }
 
-    const targets = topMenu.split("|")
-      .map((opt) => `discovery.${opt}`);
+    const targets = topMenu.split("|").map((opt) => `discovery.${opt}`);
     const filteredTargets = targets.filter(
-      (item) => item !== "discovery.categories",
+      (item) => item !== "discovery.categories"
     );
 
-    return (
-      filteredTargets.includes(this.router.currentRouteName)
-    );
+    return filteredTargets.includes(this.router.currentRouteName);
   }
 
   get categorySlugPathWithID() {
@@ -101,10 +101,10 @@ export default class CategorySidebar extends Component {
       ) {
         return this.parsedSetting[parentCategorySlug];
       }
-    } 
+    }
   }
 
-   @action
+  @action
   async fetchPostContent() {
     this.loading = true;
 
