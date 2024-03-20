@@ -1,0 +1,13 @@
+{
+  "name": "discourse-category-sidebars",
+  "version": "0.0.2",
+  "repository": "https://github.com/discourse/discourse-category-sidebars",
+  "author": "Discourse",
+  "license": "MIT",
+  "devDependencies": {
+    "@discourse/lint-configs": "^1.0.0",
+    "ember-template-lint": "^5.11.2",
+    "eslint": "^8.51.0",
+    "prettier": "^2.8.8"
+  }
+}
