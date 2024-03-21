@@ -4,98 +4,142 @@
   }
 }
 .sidebar-wrapper {
-    overflow-y: unset;
+  overflow-y: unset;
+}
+.sidebar-sections {
+  .sidebar-wrapper & {
+    padding: 30px;
   }
-  .sidebar-sections {
-    .sidebar-wrapper & {
-        padding: 30px;
+  .cooked {
+    ul {
+      margin-left: 0;
+      margin-block: 0;
+      padding-left: 0;
+      li {
+        list-style: none;
+        padding-block: 3px;
+        font-size: var(--base-font-size-smaller);
+      }
     }
-    .cooked {
-      ul {
-        margin-left: 0;
-        margin-block: 0;
-        padding-left: 0;
-        li {
-          list-style: none;
-          padding-block: 3px;
-          font-size: var(--base-font-size-smaller);
+    a {
+      color: var(--primary);
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 2px;
+      }
+      &:hover {
+        &::after {
+          background: var(--tertiary);
         }
       }
-      a {
-        color: var(--primary);
+      &.active {
+        font-weight: 600;
+        &::after {
+          background: var(--tertiary);
+        }
+      }
+    }
+    li {
+      position: relative;
+    }
+    p:first-child {
+      display: none;
+    }
+    h3:first-of-type {
+      margin-top: 0;
+    }
+    h3 {
+      margin-bottom: 5px;
+      font-weight: 500;
+      font-size: var(--font-up-1-rem);
+    }
+    details {
+      > summary {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-block: 3px;
+        font-size: var(--base-font-size-smaller);
+        &::before {
+          content: none;
+        }
         &::after {
           content: "";
-          position: absolute;
-          left: 0;
-          top: 0;
-          height: 100%;
-          width: 2px;
-        }
-        &:hover {
-          &::after {
-            background: var(--tertiary);
-          }
-        }
-        &.active {
-          font-weight: 600;
-          &::after {
-            background: var(--tertiary);
-          }
+          border: solid rgba(var(--primary-rgb), 0.35);
+          border-width: 0 2px 2px 0;
+          width: 0.35rem;
+          height: 0.35rem;
+          border-radius: 2.5px;
+          transform: rotate(45deg);
         }
       }
-      li { position: relative; }
-      p:first-child {
-        display: none;
+      &[open] > summary {
+        &::before {
+          content: none;
+        }
+        &::after {
+          content: "";
+          transform: rotate(225deg);
+          margin-top: 4px;
+        }
       }
-      h3:first-of-type {
-        margin-top: 0;
+    }
+  }
+  .cooked > ul {
+    padding-left: 0;
+  }
+  .cooked > details,
+  .cooked li {
+    padding-inline: 8px;
+  }
+  .cooked {
+    > ul,
+    > details > ul {
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 1px;
+        background: #dee6ea;
       }
-      h3 {
-        margin-bottom: 5px;
+    }
+    > details {
+      padding-inline: 0;
+      margin-bottom: 10px;
+      > summary {
         font-weight: 500;
-        font-size: var(--font-up-1-rem);
       }
-      details {
-        > summary {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding-block: 3px;
-          font-size: var(--base-font-size-smaller);
-          &::before {
-            content: none;
-          }
-          &::after {
-            content: "";
-            border: solid rgba(var(--primary-rgb),.35);
-            border-width: 0 2px 2px 0;
-            width: 0.35rem;
-            height: 0.35rem;
-            border-radius: 2.5px;
-            transform: rotate(45deg);
-          }
-        }
-        &[open] > summary {
-          &::before {
-            content: none;
-          }
-          &::after {
-            content: "";
-            transform: rotate(225deg);
-            margin-top: 4px;
+      > ul {
+        li > ul {
+          a.active::after,
+          a:hover::after {
+            left: -8px;
           }
         }
       }
-    }
-    .cooked > ul {
-      padding-left: 0;
-    }
-    .cooked > details,.cooked li {
-      padding-inline: 8px;
-    }
-    .cooked {
-      > ul, > details > ul {
+      > details {
+        padding-left: 8px;
         position: relative;
+        > details {
+          padding-left: 8px;
+          a.active::after,
+          a:hover::after {
+            left: -16px;
+          }
+          li > ul {
+            a.active::after,
+            a:hover::after {
+              left: -24px;
+            }
+          }
+        }
         &::before {
           content: "";
           position: absolute;
@@ -105,52 +149,17 @@
           width: 1px;
           background: #dee6ea;
         }
-      }
-      > details {
-        padding-inline: 0;
-        margin-bottom: 10px;
-        > summary {
-          font-weight: 500;
+        a.active::after,
+        a:hover::after {
+          left: -8px;
         }
-        > ul {
-          li > ul {
-            a.active::after, a:hover::after {
-              left: -8px;
-            }
-          }
-        }
-        > details {
-          padding-left: 8px;
-          position: relative;
-          > details {
-            padding-left: 8px;
-            a.active::after, a:hover::after {
-              left: -16px;
-            }
-            li > ul {
-              a.active::after, a:hover::after {
-                left: -24px;
-              }
-            }
-          }
-          &::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 1px;
-            background: #dee6ea;
-          }
-          a.active::after, a:hover::after {
-            left: -8px;
-          }
-          li > ul {
-            a.active::after, a:hover::after {
-              left: -16px;
-            }
+        li > ul {
+          a.active::after,
+          a:hover::after {
+            left: -16px;
           }
         }
       }
     }
   }
+}

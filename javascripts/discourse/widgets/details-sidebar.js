@@ -1,9 +1,9 @@
-import { getOwner } from "discourse-common/lib/get-owner";
 import { ajax } from "discourse/lib/ajax";
 import DecoratorHelper from "discourse/widgets/decorator-helper";
 import PostCooked from "discourse/widgets/post-cooked";
 import RawHtml from "discourse/widgets/raw-html";
 import { createWidget } from "discourse/widgets/widget";
+import { getOwner } from "discourse-common/lib/get-owner";
 
 function defaultSettings() {
   return {};
@@ -29,7 +29,7 @@ function createSidebar(taxonomy, isCategory) {
   }
 
   return new RawHtml({
-    html: `<div class="category-sidebar-contents category-sidebar-${taxonomy} cooked">${this.state.posts[0].attrs.cooked}</div>`
+    html: `<div class="category-sidebar-contents category-sidebar-${taxonomy} cooked">${this.state.posts[0].attrs.cooked}</div>`,
   });
 }
 
@@ -52,11 +52,14 @@ createWidget("details-sidebar", {
     let headerHeight =
       document.getElementsByClassName("d-header-wrap")[0].offsetHeight || 0;
     let sidebarTop = headerHeight + 20 + "px";
-    let hasSidebarPage = document.getElementsByClassName("has-sidebar-page")[0] || 0;
+    let hasSidebarPage =
+      document.getElementsByClassName("has-sidebar-page")[0] || 0;
     let sidebarMaxHeight = "calc(100vh - " + (headerHeight + 40) + "px)";
     if (sidebarWrapper && !hasSidebarPage) {
       sidebarWrapper.style.maxHeight = sidebarMaxHeight;
-      sidebarWrapper.style.top = settings.stick_on_scroll ? sidebarTop : undefined;
+      sidebarWrapper.style.top = settings.stick_on_scroll
+        ? sidebarTop
+        : undefined;
       sidebarWrapper.style.position = settings.stick_on_scroll ? "sticky" : "";
     }
 
@@ -71,21 +74,21 @@ createWidget("details-sidebar", {
   html() {
     const router = getOwner(this).lookup("router:main");
     const currentRouteParams = router.currentRoute.parent.params;
-    const currentCategoryId = router.currentRoute?.parent?.attributes?.category_id || 0;
-    const isDetailTopic = currentRouteParams.hasOwnProperty(
-      "slug"
-    );
+    const currentCategoryId =
+      router.currentRoute?.parent?.attributes?.category_id || 0;
+    const isDetailTopic = currentRouteParams.hasOwnProperty("slug");
 
     let prevURL = "";
 
     const observer = new MutationObserver(() => {
-      if (location.href !== prevURL && (/\/t\//.test(location.href))) {
+      if (location.href !== prevURL && /\/t\//.test(location.href)) {
         prevURL = location.href;
         this.scheduleRerender();
         const rt = getOwner(this).lookup("router:main");
         const currentRT = rt.currentRoute.parent.params;
-        const activeItem = document.querySelector("li a.active:not(.sidebar-section-link)");
-
+        const activeItem = document.querySelector(
+          "li a.active:not(.sidebar-section-link)"
+        );
 
         if (activeItem) {
           activeItem.classList.remove("active");
@@ -107,7 +110,9 @@ createWidget("details-sidebar", {
           }
         }
         const currentSidebarItem = document.querySelector(
-          "li a[href*='" + currentRT.id + "']:not(.active):not(.sidebar-section-link)"
+          "li a[href*='" +
+            currentRT.id +
+            "']:not(.active):not(.sidebar-section-link)"
         );
         if (currentSidebarItem) {
           currentSidebarItem.classList.add("active");
@@ -137,7 +142,7 @@ createWidget("details-sidebar", {
     if (setups["all"] && !isDetailTopic) {
       return createSidebar.call(this, "all");
     } else if (isDetailTopic) {
-      const detailsSlug = currentRouteParams.slug
+      const detailsSlug = currentRouteParams.slug;
 
       if (detailsSlug && setups[detailsSlug]) {
         return createSidebar.call(this, detailsSlug, false);
@@ -151,7 +156,10 @@ createWidget("details-sidebar", {
 
           document
             .querySelector("body")
-            .classList.remove("custom-sidebar", "sidebar-" + settings.sidebar_side);
+            .classList.remove(
+              "custom-sidebar",
+              "sidebar-" + settings.sidebar_side
+            );
           document
             .querySelector("#main-outlet > .container+div")
             .classList.remove("with-sidebar", settings.sidebar_side);
@@ -166,11 +174,13 @@ createWidget("details-sidebar", {
         this.model = response.post_stream.posts[0];
         this.model.topic = response;
 
-        postCache[id] = new PostCooked({
-          cooked: response.post_stream.posts[0].cooked,
-        },
-        new DecoratorHelper(this),
-        this.currentUser);
+        postCache[id] = new PostCooked(
+          {
+            cooked: response.post_stream.posts[0].cooked,
+          },
+          new DecoratorHelper(this),
+          this.currentUser
+        );
         this.scheduleRerender();
       });
     }
@@ -180,8 +190,10 @@ createWidget("details-sidebar", {
   isPostExistFromParent(id, postId) {
     if (id && postId) {
       ajax(`/c/${id}.json`).then((response) => {
-        topicInsideParent[id] = response?.topic_list?.topics.some((topic) => topic.id === postId);
+        topicInsideParent[id] = response?.topic_list?.topics.some(
+          (topic) => topic.id === postId
+        );
       });
     }
-  }
+  },
 });

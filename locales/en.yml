@@ -1,0 +1,17 @@
+en:
+  theme_metadata:
+    description: "Show a topic's content alongside your category topic list"
+    settings:
+      setup: >
+        Each line should be in the format of "<code>category-slug</code>, <code>ID</code>".<br/> (e.g., staff, 3)<br/>
+        <ul>
+          <li>The category slug is the category name from its url, for example if your category is located at community.example.com/c/site-feedback/5, you should use <b>site-feedback</b></li>
+          <li>The topic ID is the first number in its url, for from the url community.example.com/t/welcome-to-discourse/8/10, you would use <b>8</b> in the setting</li>
+          <li>If you'd like to set a sidebar for /latest, /top, /new, /unread, use <code>all</code> as the category slug</li>
+        </ul>
+        <p>For performance reasons it's recommended that you close sidebar topics so there aren't any replies</p>
+        <p>Note that for a user to be able to see the sidebar, they must be able to access the topic. A topic in a protected category will not be visible as a sidebar to all users. If you don't want a sidebar topic to appear in your topic list, you can unlist it.</p>
+      inherit_parent_sidebar: >
+        If checked subcategories will inherit their parent category's sidebar (unless the subcategory has its own sidebar assigned). 
+        <p>When unchecked subcategories will only display a sidebar if one is specified.</p>
+      stick_on_scroll: "When checked sidebar has a sticky position on scroll"

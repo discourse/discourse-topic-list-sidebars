@@ -1,9 +1,9 @@
-import { getOwner } from "discourse-common/lib/get-owner";
 import { ajax } from "discourse/lib/ajax";
 import DecoratorHelper from "discourse/widgets/decorator-helper";
 import PostCooked from "discourse/widgets/post-cooked";
 import RawHtml from "discourse/widgets/raw-html";
 import { createWidget } from "discourse/widgets/widget";
+import { getOwner } from "discourse-common/lib/get-owner";
 
 function defaultSettings() {
   return {};
@@ -29,7 +29,7 @@ function createSidebar(taxonomy) {
   }
 
   return new RawHtml({
-    html: `<div class="category-sidebar-contents category-sidebar-${taxonomy} cooked">${this.state.posts[0].attrs.cooked}</div>`
+    html: `<div class="category-sidebar-contents category-sidebar-${taxonomy} cooked">${this.state.posts[0].attrs.cooked}</div>`,
   });
 }
 
@@ -48,7 +48,9 @@ createWidget("category-sidebar", {
     let sidebarMaxHeight = "calc(100vh - " + (headerHeight + 40) + "px)";
     if (sidebarWrapper) {
       sidebarWrapper.style.maxHeight = sidebarMaxHeight;
-      sidebarWrapper.style.top = settings.stick_on_scroll ? sidebarTop : undefined;
+      sidebarWrapper.style.top = settings.stick_on_scroll
+        ? sidebarTop
+        : undefined;
     }
   },
 
@@ -105,11 +107,12 @@ createWidget("category-sidebar", {
         this.model = response.post_stream.posts[0];
         this.model.topic = response;
 
-        postCache[id] = new PostCooked({
-          cooked: response.post_stream.posts[0].cooked,
-        },
-        new DecoratorHelper(this),
-        this.currentUser
+        postCache[id] = new PostCooked(
+          {
+            cooked: response.post_stream.posts[0].cooked,
+          },
+          new DecoratorHelper(this),
+          this.currentUser
         );
         this.scheduleRerender();
       });
