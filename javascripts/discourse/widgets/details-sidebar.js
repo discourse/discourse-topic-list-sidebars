@@ -1,9 +1,9 @@
+import { getOwner } from "@ember/application";
 import { ajax } from "discourse/lib/ajax";
 import DecoratorHelper from "discourse/widgets/decorator-helper";
 import PostCooked from "discourse/widgets/post-cooked";
 import RawHtml from "discourse/widgets/raw-html";
 import { createWidget } from "discourse/widgets/widget";
-import { getOwner } from "discourse-common/lib/get-owner";
 
 function defaultSettings() {
   return {};
