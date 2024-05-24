@@ -1,5 +1,5 @@
 import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
+import { cached,tracked } from "@glimmer/tracking";
 import { concat } from "@ember/helper";
 import { action } from "@ember/object";
 import didInsert from "@ember/render-modifiers/modifiers/did-insert";
@@ -9,7 +9,6 @@ import { htmlSafe } from "@ember/template";
 import ConditionalLoadingSpinner from "discourse/components/conditional-loading-spinner";
 import bodyClass from "discourse/helpers/body-class";
 import { ajax } from "discourse/lib/ajax";
-import { cached } from "@glimmer/tracking";
 
 export default class TopicListSidebar extends Component {
   @service router;
@@ -24,11 +23,15 @@ export default class TopicListSidebar extends Component {
   }
 
   findCategory(categoryId) {
-    return settings.sidebars.filter((setting) => setting.category?.includes(categoryId));
+    return settings.sidebars.filter((setting) =>
+      setting.category?.includes(categoryId)
+    );
   }
 
   findTag(tagName) {
-    return settings.sidebars.filter((setting) => setting.tag?.includes(tagName));
+    return settings.sidebars.filter((setting) =>
+      setting.tag?.includes(tagName)
+    );
   }
 
   get isTopRoute() {
@@ -63,8 +66,8 @@ export default class TopicListSidebar extends Component {
 
     if (this.findName("all") && this.isTopRoute) {
       result = this.findName("all");
-    } 
-    
+    }
+
     if (categoryId) {
       if (
         settings.inherit_parent_sidebar &&
@@ -76,16 +79,16 @@ export default class TopicListSidebar extends Component {
       if (this.findCategory(categoryId).length) {
         result = this.findCategory(categoryId);
       }
-    } 
-    
+    }
+
     if (tagId) {
       result = this.findTag(tagId);
-    } 
+    }
 
     return result;
   }
 
-   @cached
+  @cached
   get category() {
     return (
       this.router.currentRoute.attributes.category ||

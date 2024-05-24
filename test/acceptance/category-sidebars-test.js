@@ -14,9 +14,7 @@ acceptance("CategorySidebar - General", function () {
   });
 
   test("Sidebar appears based on all setting", async function (assert) {
-    settings.sidebars = [
-      { category: [], name: "all", tag: [], topic_id: 280 },
-    ];
+    settings.sidebars = [{ category: [], name: "all", tag: [], topic_id: 280 }];
 
     await visit("/latest");
 

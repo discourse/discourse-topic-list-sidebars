@@ -18,9 +18,7 @@ This theme component takes a topic and applies it as a sidebar for a category or
 
 - By default a category's sidebar will also display for all its subcategories unless a subcategory has its own sidebar defined (you can disable this by unchecking the `inherit parent sidebar` setting).
 
-----
-
-
+---
 
 I recommend creating sidebar topics in their respective categories, closing the topic so there are no replies, and unlisting it (so it doesn't appear in the topic list).
 
