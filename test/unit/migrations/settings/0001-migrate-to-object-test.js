@@ -11,8 +11,12 @@ module("Unit | Migrations | Settings | 0001-migrate-to-object", function () {
 
     const helpers = {
       getCategoryIdByName: (name) => {
-        if (name === "staff") return 1;
-        if (name === "general") return 2;
+        if (name === "staff") {
+          return 1;
+        }
+        if (name === "general") {
+          return 2;
+        }
         return null;
       },
     };
@@ -43,7 +47,9 @@ module("Unit | Migrations | Settings | 0001-migrate-to-object", function () {
 
     const helpers = {
       getCategoryIdByName: (name) => {
-        if (name === "general") return 2;
+        if (name === "general") {
+          return 2;
+        }
         return null;
       },
     };
@@ -74,8 +80,12 @@ module("Unit | Migrations | Settings | 0001-migrate-to-object", function () {
 
     const helpers = {
       getCategoryIdByName: (name) => {
-        if (name === "site feedback") return 1;
-        if (name === "staff") return 2;
+        if (name === "site feedback") {
+          return 1;
+        }
+        if (name === "staff") {
+          return 2;
+        }
         return null;
       },
     };
