@@ -1,6 +1,20 @@
-setup:
-  type: list
-  default: "staff, 3"
+sidebars:
+  type: objects
+  default: []
+  schema:
+    name: "sidebar"
+    identifier: name
+    properties:
+      name:
+        type: string
+        required: true
+      category:
+        type: categories
+      tag:
+        type: tags
+      topic_id:
+        type: integer
+        required: true
 
 sidebar_side:
   default: right
