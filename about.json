@@ -1,6 +1,6 @@
 {
-  "name": "Discourse Topic List Sidebars",
-  "license_url": "https://github.com/discourse/discourse-category-sidebars/blob/master/LICENSE",
-  "about_url": "https://github.com/discourse/discourse-category-sidebars/blob/master/README.md",
+  "name": "Topic List Sidebars",
+  "license_url": "https://github.com/discourse/discourse-topic-list-sidebars/blob/main/LICENSE",
+  "about_url": "https://meta.discourse.org/t/discourse-topic-list-sidebars/107561",
   "component": true
 }
