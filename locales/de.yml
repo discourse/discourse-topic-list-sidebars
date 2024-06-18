@@ -5,3 +5,9 @@
 # https://translate.discourse.org/
 
 de:
+  theme_metadata:
+    description: "Zeige den Inhalt eines Themas neben der Themenliste an"
+    settings:
+      inherit_parent_sidebar: >
+        Wenn diese Option aktiviert ist, erben Unterkategorien die Seitenleiste ihrer übergeordneten Kategorie (es sei denn, der Unterkategorie wurde eine eigene Seitenleiste zugewiesen). <p>Ist das Kontrollkästchen nicht aktiviert, zeigen Unterkategorien nur dann eine Seitenleiste an, wenn eine solche angegeben ist.</p>
+      stick_on_scroll: "Wenn diese Option aktiviert ist, bleibt die Seitenleiste beim Scrollen an einer festen Position"
