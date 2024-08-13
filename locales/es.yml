@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 es:
+  theme_metadata:
+    description: "Mostrar el contenido de un tema junto a la lista de temas de tu categoría"
+    settings:
+      setup: >
+        Cada línea debe tener el formato «<code>slug-de-categoría</code>, <code>ID</code>».<br/> (por ejemplo, staff, 3)<br/> <ul> <li>El slug de la categoría es el nombre de la categoría de su URL, por ejemplo, si tu categoría se encuentra en comunidad.ejemplo.com/c/comentarios-del-sitio/5, debes utilizar <b>comentarios-del-sitio</b></li> <li>El ID del tema es el primer número de su URL, por ejemplo, de la URL comunidad.ejemplo.com/t/bienvenido-a-discourse/8/10, deberías usar <b>8</b> en la configuración</li> <li>Si quieres establecer una barra lateral para /ultimo, /top, /nuevo, /no-leido, utiliza <code>all</code> como slug de la categoría</li> </ul> <p>Por razones de rendimiento, se recomienda que cierres los temas de la barra lateral para que no haya respuestas</p> <p>Ten en cuenta que para que un usuario pueda ver la barra lateral, debe poder acceder al tema. Un tema en una categoría protegida no será visible como barra lateral para todos los usuarios. Si no quieres que un tema de la barra lateral aparezca en tu lista de temas, puedes quitarlo de la lista.</p>
+      inherit_parent_sidebar: >
+        Si está marcada, las subcategorías heredarán la barra lateral de su categoría principal (a menos que la subcategoría tenga asignada su propia barra lateral). <p>Si no está marcada, las subcategorías solo mostrarán una barra lateral si se especifica una.</p>
+      stick_on_scroll: "Cuando está marcada, la barra lateral tiene una posición fija en el desplazamiento"

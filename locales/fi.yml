@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 fi:
+  theme_metadata:
+    description: "Näytä ketjun sisältö alueen ketjuluettelosi rinnalla"
+    settings:
+      setup: >
+        Jokaisen rivin tulisi olla muodossa "<code>alueen-polkutunnus</code>, <code>tunnus</code>".<br/> (esim. henkilökunta, 3)<br/> <ul> <li>Alueen polkutunnus on alueen nimi sen URL-osoitteesta, esimerkiksi jos alueesi sijaitsee osoitteessa yhteiso.example.com/c/sivuston-palaute/5, polkutunnus on <b>sivuston-palaute</b></li> <li>Ketjun tunnus on sen URL-osoitteen ensimmäinen numero, URL-osoitteessa yhteiso.example.com/t/tervetuloa-discourseen/8/10, käyttäisit asetuksessa lukua <b>8</b></li> <li>Jos haluat haluat asettaa sivupalkin sivuille /latest, /top, /new, /unread, aseta alueen polkutunnukseksi <code>all</code></li> </ul> <p>Suorituskykysyistä on suositeltavaa sulkea sivupalkin ketjut, jotta niihin ei tule vastauksia</p> <p>Huomaa, että jotta käyttäjä voi nähdä sivupalkin, hänellä täytyy olla pääsy ketjuun. Suojatun alueen ketju ei näy sivupalkkina kaikille käyttäjille. Jos et halua sivupalkin ketjun näkyvän ketjuluettelossasi, voit poistaa sen luettelosta.</p>
+      inherit_parent_sidebar: >
+        Jos tämä valitaan, ala-alueet perivät yläalueensa sivupalkin (ellei ala-alueelle ole määritetty omaa sivupalkkia). <p>Kun tätä ei valita, ala-alueet näyttävät sivupalkin vain, jos sellainen on määritetty.</p>
+      stick_on_scroll: "Kun tämä on valittu, sivupalkki pysyy paikoillaan vieritettäessä"
