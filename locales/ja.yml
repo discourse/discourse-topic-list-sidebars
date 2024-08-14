@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 ja:
+  theme_metadata:
+    description: "カテゴリのトピックリストとともにトピックのコンテンツを表示します"
+    settings:
+      setup: >
+        各行は「<code>category-slug</code>, <code>ID</code>」のフォーマットで示す必要があります。<br/>(例: スタッフ, 3)<br/> <ul> <li>カテゴリスラッグは url のカテゴリ名です。例えば、カテゴリが community.example.com/c/site-feedback/5 にある場合は <b>site-feedback</b> を使用します。</li> <li>トピック ID は URL の最初の数値で、URL が community.example.com/t/welcome-to-discourse/8/10 の場合はこの設定に <b>8</b> を指定します。</li> <li>/latest、/top、/new、/unread にサイドバーを設定する場合は、カテゴリスラッグとして <code>all</code> を使用します。</li> </ul> <p>パフォーマンスの理由により、返信がないようにサイドバートピックを閉じることをお勧めします。</p> <p>ユーザーがサイドバーを表示するには、トピックにもアクセスできる必要があることに注意してください。保護されたカテゴリのトピックはすべてのユーザーにサイドバーとして表示されません。トピックリストにサイドバートピックを表示しない場合は、それをリストから除外することができます。</p>
+      inherit_parent_sidebar: >
+        オンである場合、サブカテゴリは親カテゴリのサイドバーを継承します (サブカテゴリに独自サイドバーが割り当てられていない場合を除く)。<p>オフにすると、サブカテゴリはサイドバーが指定されている場合にのみそれを表示します。</p>
+      stick_on_scroll: "オンの場合、サイドバーはスクロール時に固定表示されます"
