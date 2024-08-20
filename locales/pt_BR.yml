@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 pt_BR:
+  theme_metadata:
+    description: "Mostrar o conteúdo do tópico junto com a lista de tópicos da categoria"
+    settings:
+      setup: >
+        Todas as linhas devem estar no formato "<code>category-slug</code>, <code>ID</code>".<br/> (e.g., staff, 3)<br/> <ul> <li>O slug da categoria é o nome que está na URL dela. Por exemplo, se sua categoria estiver localizada em community.example.com/c/site-feedback/5, é preciso usar <b>site-feedback</b></li> <li>O ID do tópico é o primeiro número que está na URL. Para a URL community.example.com/t/welcome-to-discourse/8/10, seria usado o número <b>8</b> na configuração</li> <li>Se quiser definir uma barra lateral para /latest, /top, /new, /unread, use <code>tudo</code> como o slug da categoria</li> </ul> <p>Para manter o desempenho, é recomendável fechar os tópicos da barra lateral para não receber respostas</p> <p>Observação: para que o(a) usuário(a) veja a barra lateral, é preciso que ele(a) possa acessar o tópico. A categoria dos tópicos é protegida e não está visível na barra lateral de todos(as) os(as) usuários(as). Se não quiser que um tópico seja exibido como barra lateral na sua lista de tópicos, basta removê-lo dela.</p>
+      inherit_parent_sidebar: >
+        Se esta opção estiver marcada, as subcategorias herdarão a barra lateral da categoria pai (a menos que a subcategoria tenha sua própria barra de ferramentas atribuída). <p>Se estiver desmarcada, será exibida apenas a barra lateral da subcategoria especificada.</p>
+      stick_on_scroll: "Se esta opção estiver marcada, a posição da barra lateral acompanhará a rolagem"

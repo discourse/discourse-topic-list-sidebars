@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 nl:
+  theme_metadata:
+    description: "Geef de inhoud van een topic weer naast de topicslijst van de categorie"
+    settings:
+      setup: >
+        Elke regel moet de notatie "<code>categorieslug</code>, <code>ID</code>" hebben.<br/> (Bijvoorbeeld personeel, 3)<br/> <ul> <li>De categorieslug is de categorienaam van de URL van de categorie. Als je categorie zich bijvoorbeeld bevindt op community.example.com/c/site-feedback/5, moet je <b>site-feedback</b> gebruiken</li> <li>De topic-ID is het eerste getal in de URL. Voor de URL community.example.com/t/welcome-to-discourse/8/10 zou je <b>8</b> gebruiken in de instelling</li> <li>Als je een zijbalk wilt instellen voor /nieuwste, /top, /nieuw en /ongelezen, gebruik dan <code>all</code> als categorieslug</li> </ul> <p>Om prestatieredenen is het aan te raden om topics in de zijbalk te sluiten, zodat er geen antwoorden zijn</p> <p>Merk op dat een gebruiker de zijbalk alleen kan zien als deze toegang heeft tot het topic. Een topic in een beschermde categorie is niet zichtbaar als zijbalk voor alle gebruikers. Als je niet wilt dat een zijbalktopic wordt weergegeven in je topicslijst, kun je het onzichtbaar maken.</p>
+      inherit_parent_sidebar: >
+        Als dit is geselecteerd, nemen subcategorieën de zijbalk van hun bovenliggende categorie over (tenzij een eigen zijbalk is toegewezen aan een subcategorie). <p>Als dit niet is geselecteerd, wordt er in subcategorieën alleen een zijbalk weergegeven als er een is opgegeven.</p>
+      stick_on_scroll: "Als dit is geselecteerd, heeft de zijbalk een vaste positie bij het scrollen"
