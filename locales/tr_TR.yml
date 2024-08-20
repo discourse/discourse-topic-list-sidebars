@@ -5,3 +5,11 @@
 # https://translate.discourse.org/
 
 tr_TR:
+  theme_metadata:
+    description: "Konu içeriğini kategori konu listenizin yanında gösterin"
+    settings:
+      setup: >
+        Her satır "<code>category-slug</code>, <code>kimlik</code>" formatında olmalıdır.<br/> (ör., personel, 3)<br/> <ul> <li>Kategori slug'ı, url'sindeki kategori adıdır, örneğin kategoriniz community.example.com/c/site-feedback/5 adresinde bulunuyorsa <b>site-feedback</b></li> <li>Konu kimliği url'sindeki ilk sayıdır çünkü url'den community.example.com/t/welcome-to-course/8/10, ayarında <b>8</b> ögesini kullanırsınız.</li> <li> /latest, /top, /new, /unread için bir kenar çubuğu ayarlamak istiyorsanız kategori slug'ı olarak <code>all</code> ögesini kullanın</li> </ul> <p>Performans nedenleriyle, yanıt kalmayacak şekilde kenar çubuğu konularını kapatmanız önerilir</p> <p>Bir kullanıcının kenar çubuğunu görebilmesi için konuya erişebilmesi gerektiğini unutmayın. Korumalı bir kategorideki bir konu tüm kullanıcılar için kenar çubuğu olarak görünmez. Bir kenar çubuğu konusunun konu listenizde görünmesini istemiyorsanız listeden kaldırabilirsiniz.</p>
+      inherit_parent_sidebar: >
+        İşaretlenirse alt kategoriler üst kategorilerinin kenar çubuğunu devralır (alt kategorinin kendi kenar çubuğu atanmadığı sürece). <p>İşaretli olmadığında alt kategoriler yalnızca bir kenar çubuğu belirtilmişse gösterir.</p>
+      stick_on_scroll: "İşaretlendiğinde kenar çubuğu kaydırmada yapışkan bir konuma sahiptir"
