@@ -6,10 +6,7 @@
 
 de:
   theme_metadata:
-    description: "Zeige den Inhalt eines Themas neben deiner Kategorie-Themenliste an"
     settings:
-      setup: >
-        Jede Zeile sollte das Format „<code>category-slug</code>, <code>ID</code>“ haben<br/> (z. B. staff, 3).<br/> <ul> <li>Das Kategorie-Kürzel ist der Kategoriename aus der URL. Wenn sich deine Kategorie beispielsweise unter community.example.com/c/site-feedback/5 befindet, solltest du <b>site-feedback</b> verwenden</li> <li>Die Themen-ID ist die erste Zahl in der URL, für die URL community.example.com/t/welcome-to-discourse/8/10 würdest du <b>8</b> in der Einstellung verwenden</li> <li>Wenn du eine Seitenleiste für /latest, /top, /new, /unread einrichten möchtest, verwende <code>all</code> als Kategorie-Kürzel</li> </ul> <p>Aus Leistungsgründen wird empfohlen, dass du Themen in der Seitenleiste schließt, damit es keine Antworten gibt</p> <p>Beachte, dass ein Benutzer, um die Seitenleiste sehen zu können, auf das Thema zugreifen können muss. Ein Thema in einer geschützten Kategorie wird nicht für alle Benutzer als Seitenleiste sichtbar sein. Wenn du nicht möchtest, dass ein Thema in der Seitenleiste in deiner Themenliste erscheint, kannst du es unsichtbar machen.</p>
       inherit_parent_sidebar: >
         Wenn diese Option aktiviert ist, erben Unterkategorien die Seitenleiste ihrer übergeordneten Kategorie (es sei denn, der Unterkategorie wurde eine eigene Seitenleiste zugewiesen). <p>Ist das Kontrollkästchen nicht aktiviert, zeigen Unterkategorien nur dann eine Seitenleiste an, wenn eine solche angegeben ist.</p>
       stick_on_scroll: "Wenn diese Option aktiviert ist, bleibt die Seitenleiste beim Scrollen an einer festen Position"

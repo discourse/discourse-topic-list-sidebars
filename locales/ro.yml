@@ -5,3 +5,5 @@
 # https://translate.discourse.org/
 
 ro:
+  theme_metadata:
+    description: "Afișează conținutul unui subiect alături de lista de subiecte pentru o etichetă sau categorie"

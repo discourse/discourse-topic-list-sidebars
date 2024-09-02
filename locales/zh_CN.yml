@@ -6,10 +6,7 @@
 
 zh_CN:
   theme_metadata:
-    description: "在类别话题列表旁边显示话题的内容"
     settings:
-      setup: >
-        每一行的格式都应为“<code>category-slug</code>, <code>ID</code>”。<br/>（例如，管理人员, 3）<br/> <ul> <li>类别缩略名是来自其 URL 的类别名称，例如，如果您的类别位于 community.example.com/c/site-feedback/5，则应使用 <b>site-feedback</b></li> <li>话题 ID 是其 URL 中的第一个数字，例如，对于 URL community.example.com/t/welcome-to-discourse/8/10，您应当在设置中使用 <b>8</b></li> <li>如果您想为 /latest、/top、/new、/unread 设置边栏，则使用 <code>all</code> 作为类别缩略名</li> </ul> <p>出于性能原因，建议您关闭边栏话题，这样就不会有任何回复</p> <p>请注意，为了让用户能够看到边栏，他们必须能够访问话题。受保护类别中的话题不会以边栏形式显示给所有用户。如果您不希望边栏话题出现在您的话题列表中，您可以将其取消公开。</p>
       inherit_parent_sidebar: >
         如果选中，子类别将继承其父类别的边栏（除非子类别已被指定自己的边栏）。<p>未选中时，只有在指定一个边栏时，子类别才会显示边栏。</p>
       stick_on_scroll: "选中时，边栏在滚动时具有粘性位置"
