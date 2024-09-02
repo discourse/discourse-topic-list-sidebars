@@ -6,10 +6,7 @@
 
 fr:
   theme_metadata:
-    description: "Afficher le contenu d'un sujet à côté de la liste des sujets de votre catégorie"
     settings:
-      setup: >
-        Chaque ligne doit être au format « <code>category-slug</code>, <code>ID</code> ».<br/> (p. ex., personnel, 3)<br/> <ul> <li>Le slug de catégorie est le nom de la catégorie indiqué dans son URL. Par exemple, si votre catégorie se trouve sur community.example.com/c/site-feedback/5, vous devez utiliser <b>site-feedback</b></li> <li>L'identifiant du sujet est le premier chiffre de son URL, par exemple à partir de l'URL community.example.com/t/welcome-to-discourse/8/10, vous devez utiliser <b>8</b> dans le paramètre</li> <li>Si vous souhaitez définir une barre latérale pour /latest, /top, /new, /unread, utilisez <code>all</code> comme slug de catégorie</li> </ul> <p>Pour des raisons de performances, il est recommandé de fermer les sujets de la barre latérale pour qu'il n'y ait aucune réponse</p> <p>Notez que pour qu'un utilisateur puisse voir la barre latérale, il doit être en mesure d'accéder au sujet. Un sujet appartenant à une catégorie protégée ne sera pas visible dans la barre latérale pour tous les utilisateurs. Si vous ne souhaitez pas qu'un sujet de la barre latérale apparaisse dans votre liste de sujets, vous pouvez le supprimer de la liste.</p>
       inherit_parent_sidebar: >
         Si cette case est cochée, les sous-catégories hériteront de la barre latérale de leur catégorie parente (sauf si la sous-catégorie possède sa propre barre latérale). <p>Lorsque cette case n'est pas cochée, les sous-catégories n'affichent une barre latérale que si elle est spécifiée.</p>
       stick_on_scroll: "Lorsque cette case est cochée, la barre latérale a une position collante lors du défilement"
