@@ -6,6 +6,7 @@
 
 de:
   theme_metadata:
+    description: "Den Inhalt eines Themas neben der Themenliste für ein Schlagwort oder eine Kategorie anzeigen"
     settings:
       inherit_parent_sidebar: >
         Wenn diese Option aktiviert ist, erben Unterkategorien die Seitenleiste ihrer übergeordneten Kategorie (es sei denn, der Unterkategorie wurde eine eigene Seitenleiste zugewiesen). <p>Ist das Kontrollkästchen nicht aktiviert, zeigen Unterkategorien nur dann eine Seitenleiste an, wenn eine solche angegeben ist.</p>

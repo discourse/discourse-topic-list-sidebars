@@ -6,6 +6,7 @@
 
 nl:
   theme_metadata:
+    description: "Toon de inhoud van een topic naast de topiclijst voor een tag of categorie"
     settings:
       inherit_parent_sidebar: >
         Als dit is geselecteerd, nemen subcategorieën de zijbalk van hun bovenliggende categorie over (tenzij een eigen zijbalk is toegewezen aan een subcategorie). <p>Als dit niet is geselecteerd, wordt er in subcategorieën alleen een zijbalk weergegeven als er een is opgegeven.</p>

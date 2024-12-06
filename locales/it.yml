@@ -6,6 +6,7 @@
 
 it:
   theme_metadata:
+    description: "Mostra il contenuto di un argomento insieme all'elenco degli argomenti per un'etichetta o una categoria"
     settings:
       inherit_parent_sidebar: >
         Se selezionata, le sottocategorie erediteranno la barra laterale della categoria principale (a meno che la sottocategoria non abbia una propria barra laterale assegnata). <p>Se non selezionata, le sottocategorie visualizzeranno una barra laterale solo se ne è specificata una.</p>

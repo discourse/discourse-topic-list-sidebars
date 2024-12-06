@@ -6,6 +6,7 @@
 
 fi:
   theme_metadata:
+    description: "Näytä ketjun sisältö tunnisteen tai luokan ketjuluettelon vieressä"
     settings:
       inherit_parent_sidebar: >
         Jos tämä valitaan, ala-alueet perivät yläalueensa sivupalkin (ellei ala-alueelle ole määritetty omaa sivupalkkia). <p>Kun tätä ei valita, ala-alueet näyttävät sivupalkin vain, jos sellainen on määritetty.</p>

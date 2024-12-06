@@ -6,6 +6,7 @@
 
 pt_BR:
   theme_metadata:
+    description: "Mostrar o conteúdo do tópico junto com a lista de tópicos para obter uma tag ou categoria"
     settings:
       inherit_parent_sidebar: >
         Se esta opção estiver marcada, as subcategorias herdarão a barra lateral da categoria pai (a menos que a subcategoria tenha sua própria barra de ferramentas atribuída). <p>Se estiver desmarcada, será exibida apenas a barra lateral da subcategoria especificada.</p>
