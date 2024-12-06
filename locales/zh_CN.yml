@@ -6,6 +6,7 @@
 
 zh_CN:
   theme_metadata:
+    description: "在标签或类别的话题列表旁边显示话题内容"
     settings:
       inherit_parent_sidebar: >
         如果选中，子类别将继承其父类别的边栏（除非子类别已被指定自己的边栏）。<p>未选中时，只有在指定一个边栏时，子类别才会显示边栏。</p>

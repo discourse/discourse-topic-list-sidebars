@@ -6,6 +6,7 @@
 
 tr_TR:
   theme_metadata:
+    description: "Bir etiket veya kategori için konu listesinin yanında bir konunun içeriğini gösterin"
     settings:
       inherit_parent_sidebar: >
         İşaretlenirse alt kategoriler üst kategorilerinin kenar çubuğunu devralır (alt kategorinin kendi kenar çubuğu atanmadığı sürece). <p>İşaretli olmadığında alt kategoriler yalnızca bir kenar çubuğu belirtilmişse gösterir.</p>

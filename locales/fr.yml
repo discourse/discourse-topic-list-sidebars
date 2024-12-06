@@ -6,6 +6,7 @@
 
 fr:
   theme_metadata:
+    description: "Afficher le contenu d'un sujet à côté de la liste des sujets d'une étiquette ou d'une catégorie"
     settings:
       inherit_parent_sidebar: >
         Si cette case est cochée, les sous-catégories hériteront de la barre latérale de leur catégorie parente (sauf si la sous-catégorie possède sa propre barre latérale). <p>Lorsque cette case n'est pas cochée, les sous-catégories n'affichent une barre latérale que si elle est spécifiée.</p>

@@ -6,6 +6,7 @@
 
 es:
   theme_metadata:
+    description: "Mostrar el contenido de un tema junto a la lista de temas de una etiqueta o categoría"
     settings:
       inherit_parent_sidebar: >
         Si está marcada, las subcategorías heredarán la barra lateral de su categoría principal (a menos que la subcategoría tenga asignada su propia barra lateral). <p>Si no está marcada, las subcategorías solo mostrarán una barra lateral si se especifica una.</p>
