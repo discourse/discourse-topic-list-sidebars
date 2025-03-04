@@ -1,9 +1,3 @@
-# WARNING: Never edit this file.
-# It will be overwritten when translations are pulled from Crowdin.
-#
-# To work with us on translations, join this project:
-# https://translate.discourse.org/
-
 ro:
   theme_metadata:
     description: "Afișează conținutul unui subiect alături de lista de subiecte pentru o etichetă sau categorie"
