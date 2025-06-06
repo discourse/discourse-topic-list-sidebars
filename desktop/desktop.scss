@@ -1,10 +1,10 @@
-@media screen and (min-width: 767px) {
+@media screen and (width >= 767px) {
   // Show the sidebar at 767px
   .custom-sidebar {
     &.sidebar-left .contents > .topic-list {
       grid-template-columns: 20% 78%;
 
-      @media screen and (max-width: 900px) {
+      @media screen and (width <= 900px) {
         grid-template-columns: 25% 73%;
       }
       grid-template-areas:
@@ -15,7 +15,7 @@
     &.sidebar-right .contents > .topic-list {
       grid-template-columns: 78% 20%;
 
-      @media screen and (max-width: 900px) {
+      @media screen and (width <= 900px) {
         grid-template-columns: 73% 25%;
       }
       grid-template-areas:
@@ -99,7 +99,7 @@
     box-sizing: border-box;
     width: 78%;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (width <= 900px) {
       width: 73%;
     }
   }
