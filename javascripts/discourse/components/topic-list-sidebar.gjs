@@ -13,7 +13,6 @@ import { ajax } from "discourse/lib/ajax";
 export default class TopicListSidebar extends Component {
   @service router;
   @service siteSettings;
-  @service site;
 
   @tracked sidebarContent;
   @tracked loading = true;
