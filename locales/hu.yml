@@ -5,3 +5,9 @@
 # https://translate.discourse.org/
 
 hu:
+  theme_metadata:
+    description: "Téma tartalmának megjelenítése a címke vagy kategória témalistája mellett"
+    settings:
+      inherit_parent_sidebar: >
+        Ha be van jelölve, az alkategóriák öröklik a szülőkategória oldalsávját (kivéve, ha az alkategóriához saját oldalsáv tartozik). <p>Ha nincs bejelölve, az alkategóriák csak akkor jelenítenek meg oldalsávot, ha meg van adva.</p>
+      stick_on_scroll: "Ha be van jelölve, az oldalsáv görgetés közben rögzített pozícióval rendelkezik."
