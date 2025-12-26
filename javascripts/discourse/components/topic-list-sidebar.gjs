@@ -52,14 +52,14 @@ export default class TopicListSidebar extends Component {
     return this.router?.currentRoute?.params?.category_slug_path_with_id;
   }
 
-  get tagId() {
-    return this.router?.currentRoute?.params?.tag_id;
+  get tagName() {
+    return this.router?.currentRoute?.params?.tag_name;
   }
 
   get matchedSetting() {
     const categoryId = this.category?.id;
     const parentCategoryId = this.category?.parentCategory?.id;
-    const tagId = this.tagId;
+    const tagName = this.tagName;
 
     let result = null;
 
@@ -80,8 +80,8 @@ export default class TopicListSidebar extends Component {
       }
     }
 
-    if (tagId) {
-      result = this.findTag(tagId);
+    if (tagName) {
+      result = this.findTag(tagName);
     }
 
     return result;
@@ -131,7 +131,7 @@ export default class TopicListSidebar extends Component {
           <div
             class="category-sidebar-contents"
             data-category-sidebar={{this.category.slug}}
-            data-tag-sidebar={{this.tagId}}
+            data-tag-sidebar={{this.tagName}}
           >
             <div class="cooked">
               {{#unless this.loading}}
