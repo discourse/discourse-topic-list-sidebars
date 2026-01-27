@@ -25,7 +25,7 @@
 
     .contents > .topic-list {
       display: grid;
-      grid-column-gap: 2%;
+      column-gap: 2%;
       align-items: start;
       grid-template-rows: 50px auto;
 
