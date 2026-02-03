@@ -11,6 +11,7 @@ import bodyClass from "discourse/helpers/body-class";
 import { ajax } from "discourse/lib/ajax";
 
 export default class TopicListSidebar extends Component {
+  @service discovery;
   @service router;
   @service siteSettings;
 
@@ -53,7 +54,7 @@ export default class TopicListSidebar extends Component {
   }
 
   get tagName() {
-    return this.router?.currentRoute?.params?.tag_name;
+    return this.discovery.tag?.name;
   }
 
   get matchedSetting() {
