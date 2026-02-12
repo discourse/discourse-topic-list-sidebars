@@ -1,8 +1,17 @@
 import { visit, waitFor } from "@ember/test-helpers";
 import { test } from "qunit";
+import { cloneJSON } from "discourse/lib/object";
+import discoveryFixtures from "discourse/tests/fixtures/discovery-fixtures";
 import { acceptance } from "discourse/tests/helpers/qunit-helpers";
 
-acceptance("CategorySidebar - General", function () {
+acceptance("CategorySidebar - General", function (needs) {
+  needs.pretender((server, helper) => {
+    server.get("/tag/1/l/latest.json", () => {
+      return helper.response(
+        cloneJSON(discoveryFixtures["/tag/important/l/latest.json"])
+      );
+    });
+  });
   test("Sidebar appears based on matching setting", async function (assert) {
     settings.sidebars = [
       { category: [1], name: "bug", tag: [], topic_id: 280 },
@@ -52,7 +61,7 @@ acceptance("CategorySidebar - General", function () {
       { category: [], name: "sidebar", tag: ["important"], topic_id: 280 },
     ];
 
-    await visit("/tag/important");
+    await visit("/tag/important/1");
 
     assert.dom(".category-sidebar").exists("the sidebar should appear");
   });

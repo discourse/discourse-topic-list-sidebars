@@ -52,8 +52,13 @@ export default class TopicListSidebar extends Component {
     return this.router?.currentRoute?.params?.category_slug_path_with_id;
   }
 
+  // TODO: Once 2026.2.0 is released, replace with `this.discovery.tag?.name`
+  // and add a `< 2026.2.0` .discourse-compatibility entry pointing to this commit.
   get tagName() {
-    return this.router?.currentRoute?.params?.tag_name;
+    return (
+      this.router?.currentRoute?.attributes?.tag?.name ??
+      this.router?.currentRoute?.params?.tag_name
+    );
   }
 
   get matchedSetting() {
